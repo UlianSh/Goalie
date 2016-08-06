@@ -1,0 +1,25 @@
+{
+  "name": "goalie",
+  "version": "1.0.0",
+  "description": "# Hello everyone!!",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UlianSh/Goalie.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/UlianSh/Goalie/issues"
+  },
+  "homepage": "https://github.com/UlianSh/Goalie#readme"
+}

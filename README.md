@@ -1,3 +1,3 @@
 # Goalie
 
-# Hellow everyone!!
+# Hello everyone!!

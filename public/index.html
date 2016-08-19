@@ -17,13 +17,31 @@
         <div id="drag-1" class="draggable">
             <img src="img/testImage.png" class="tileImage">
             
-            <button type="button"
-                    >Play</button>
-            <input type="text"></input>
+            <button type="button" class="playButton">Play</button>
+            <input type="text" class="textInput">
+            
+        </div>
+        
+        <div id="drag-2" class="draggable">
+            <img src="img/testImage.png" class="tileImage">
+            
+            <button type="button" class="playButton">Play</button>
+            <input type="text" class="textInput">
             
         </div>
         
         <script>
+            console.log(document.getElementsByClassName("playButton"))
+            
+            var tiles = document.getElementsByClassName("playButton");
+            for (var i = 0; i < tiles.length; i++)
+            {
+                tiles[i].onclick = function() {
+                    console.log(this.parentElement.getElementsByClassName("textInput")[0].value)
+                }
+            }
+                
+            
             interact('.draggable')
                 .draggable({
                     inertia: false,

@@ -16,3 +16,7 @@ html, body {
     width: 100px;
     height: 100px;
 }
+
+.textInput {
+    width: 100%;
+}

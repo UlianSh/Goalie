@@ -32,12 +32,14 @@
         
         <script>
             console.log(document.getElementsByClassName("playButton"))
-            
+
             var tiles = document.getElementsByClassName("playButton");
             for (var i = 0; i < tiles.length; i++)
             {
                 tiles[i].onclick = function() {
-                    console.log(this.parentElement.getElementsByClassName("textInput")[0].value)
+                    var text = this.parentElement.getElementsByClassName("textInput")[0].value;
+                    var speech = new SpeechSynthesisUtterance(text);
+                    window.speechSynthesis.speak(speech);
                 }
             }
                 

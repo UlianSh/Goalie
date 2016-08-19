@@ -4,12 +4,55 @@
         <title></title>
 
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
-        <link rel="css/style.css" />
         <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/interact.min.js"></script>
+        <link  rel="stylesheet" href="css/style.css" />
         <script type="text/javascript" src="js/app.js"></script>
     </head>
     <body>
-        <h1>Welcome to Goalie!</h1>
+        
+        <h1 class="text-center">Welcome to Goalie!</h1>
+        
+        <div id="drag-1" class="draggable">
+            <img src="img/testImage.png" class="tileImage">
+            
+            <button type="button"
+                    >Play</button>
+            <input type="text"></input>
+            
+        </div>
+        
+        <script>
+            interact('.draggable')
+                .draggable({
+                    inertia: false,
+                    restrict: {
+                        restriction: "parent",
+                        endOnly: true,
+                        elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+                    },
+                    autoScroll: true,
+                    onmove: dragMoveListener,
+                    onend: function (event) {
+                        console.log(event.target.querySelector('input'))
+
+                    }
+                    });
+
+                    function dragMoveListener (event) {
+                        var target = event.target,
+                        // keep the dragged position in the data-x/data-y attributes
+                            x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+                            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+                        target.style.webkitTransform = target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+                        target.setAttribute('data-x', x);
+                        target.setAttribute('data-y', y);
+                    }
+
+                    // this is used later in the resizing and gesture demos
+                    window.dragMoveListener = dragMoveListener;
+        </script>
+        
     </body>
 </html>

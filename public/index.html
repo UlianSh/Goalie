@@ -33,10 +33,10 @@
         <script>
             console.log(document.getElementsByClassName("playButton"))
 
-            var tiles = document.getElementsByClassName("playButton");
-            for (var i = 0; i < tiles.length; i++)
+            var playbuttons = document.getElementsByClassName("playButton");
+            for (var i = 0; i < playbuttons.length; i++)
             {
-                tiles[i].onclick = function() {
+                playbuttons[i].onclick = function() {
                     var text = this.parentElement.getElementsByClassName("textInput")[0].value;
                     var speech = new SpeechSynthesisUtterance(text);
                     window.speechSynthesis.speak(speech);
@@ -68,10 +68,42 @@
                         target.style.webkitTransform = target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
                         target.setAttribute('data-x', x);
                         target.setAttribute('data-y', y);
+                        target.getAttribute('data-x'), target.getAttribute('data-x')
                     }
 
-                    // this is used later in the resizing and gesture demos
-                    window.dragMoveListener = dragMoveListener;
+            window.dragMoveListener = dragMoveListener;
+            
+            function createTile()
+            {
+                var tile = document.createElement("div");
+                tile.style.width = "200px";
+                tile.style.height = "400px";
+                tile.style.background = "blue";
+                tile.className = "draggable";
+                tile.innerHTML = '<img src="img/testImage.png" class="tileImage">' +
+                '<button type="button" class="playButton">Play</button>' + 
+                '<input type="text" class="textInput">'
+                document.body.appendChild(tile);
+            }
+            
+            function saveTiles() {
+                var tiles = document.getElementsByClassName("draggable");
+                var tilesToSave = [];
+                for (var i = 0; i < tiles.length; i++)
+                {
+                    var aTile =
+                    {
+                        x: tiles[i].getAttribute('data-x'),
+                        y: tiles[i].getAttribute('data-y'),
+                        text: tiles[i].getElementsByClassName('textInput')[0].value,//This last one is a 0
+                        img: tiles[i].getElementsByClassName('tileImage')[0].getAttribute('src'),
+                        color: tiles[i].style.background
+                    }
+                    tilesToSave.push(aTile);
+                }
+                console.log(tilesToSave);
+            }
+            
         </script>
         
     </body>

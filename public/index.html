@@ -13,8 +13,52 @@
     <body>
         
         <h1 class="text-center">Welcome to Goalie!</h1>
+
+        <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "150px";
+            document.getElementById("mySidenav2").style.width = "120px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";  
+        }
+            
+        </script>
         
-        <div id="drag-1" class="draggable">
+        
+        <div id="mySidenav" class="sidenav" onmouseover="openNav()" onmouseout="closeNav()">
+   
+            <img src="img/testImage.png" class="tileImage" >
+            <br>
+            <br>
+            <img src="img/testImage.png" class="tileImage">
+            <br>
+            <br>
+            <img src="img/testImage.png" class="tileImage">
+
+
+        </div>
+        
+        <div id="mySidenav2" class="sidenav2" onmouseover="openNav()" onmouseout="closeNav()">
+
+            <img src="img/testImage.png" class="tileImage" >
+            <br>
+            <br>
+            <img src="img/testImage.png" class="tileImage">
+            <br>
+            <br>
+            <img src="img/testImage.png" class="tileImage">
+
+
+        </div>
+        
+        
+        
+        
+        
+        
+        <!--<div id="drag-1" class="draggable">
             <img src="img/testImage.png" class="tileImage">
             
             <button type="button" class="playButton">Play</button>
@@ -28,7 +72,7 @@
             <button type="button" class="playButton">Play</button>
             <input type="text" class="textInput">
             
-        </div>
+        </div>-->
         
         <script>
             console.log(document.getElementsByClassName("playButton"))
@@ -73,6 +117,6 @@
                     // this is used later in the resizing and gesture demos
                     window.dragMoveListener = dragMoveListener;
         </script>
-        
+           
     </body>
 </html>

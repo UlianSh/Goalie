@@ -54,15 +54,25 @@
         function openNav2(folderNum) {
             document.getElementById("mySidenav2").style.width = "120px";
 			document.getElementById("mySidenav2").innerHTML=null;
-			for (var ii = 0; ii< files[folderNum].length; ii++) {
+			for (var ii = 1; ii< files[folderNum].length; ii++) {
 				document.getElementById("mySidenav2").innerHTML += 
-				'<img src='+files[folderNum][ii]+' class="tileImage"  onclick=createTile('+folderNum+','+ii+')> '+
+				'<img src='+files[folderNum][ii]+' class="tileImage"  onclick=createTile('+folderNum+','+ii+') onmouseover=enlargeIcon(this) onmouseout=minimizwIcon(this)> '+
 				'<br>' + 
 				'<br>'
-            }           
-			 	 
+            }           	 
         }
 		
+		function minimizwIcon(a){
+			a.style.width="100px";
+			a.style.height="100px";
+		}	
+			
+			
+		function enlargeIcon(a){
+			a.style.width="105px";
+			a.style.height="105px";
+		}
+			
 
         function closeNav2() {
             document.getElementById("mySidenav2").style.width = "0";  
@@ -80,6 +90,7 @@
             var body = parentDiv.parentElement;
             body.removeChild(parentDiv);
         }
+			
         document.getElementById('create').onclick = function(){
             var tile = document.createElement("div");
             tile.style.width = "200px";

@@ -12,20 +12,16 @@
     </head>
     <body>
         
-<<<<<<< HEAD
-        <h1 class="text-center" >Welcome to Goalie!</h1>
+
+        <h1 class="text-center"><em>Welcome to Goalie!</em></h1>
         
         <div id="mySidenav" class="sidenav" onmouseover="openNav()" ></div>
         
         <div id="mySidenav2" class="sidenav2" onmouseover="keepNavOpen()" onmouseout="closeNav2()">
-=======
-<<<<<<< HEAD
-        <h1 class="text-center"><em>Welcome to Goalie!</em></h1>
+
         <button type="button" class="createButton" id="create">Add</button>
-        <div id="drag-1" class="draggable">
-=======
-        <h1 class="text-center">Welcome to Goalie!</h1>
->>>>>>> 84d617399215993340ee10e48215a6c110b74fc5
+        <!--<div id="drag-1" class="draggable">-->
+
 
         <script>
 
@@ -78,46 +74,24 @@
 			document.getElementById("mySidenav2").style.width = "120px";
 		}	
 			
-        
-<<<<<<< HEAD
-   
-=======
-        <!--<div id="drag-1" class="draggable">
->>>>>>> 7960a7b2c23b7db9f257b8b831a92f6aee4cb3b5
-            <img src="img/testImage.png" class="tileImage">
-            
-            <button type="button" class="playButton">Play</button>
-            <button type="button" id="close" class="closeButton">Close</button>
-            <input type="text" class="textInput">
-            
-        </div>
-        
-        <div id="drag-2" class="draggable">
-            <img src="img/testImage.png" class="tileImage">
-            
-            <button type="button" class="playButton">Play</button>
-            <input type="text" class="textInput">
-            
-        </div>-->
-        
-        <script>
-          function closefunc(childButton){
-            var parentDiv = childButton.parentNode;
-            var body = parentDiv.parentNode;
-            body.removeChild(childButton);
+
+        function closefunc(childButton){
+            var parentDiv = childButton.parentElement;
+            var body = parentDiv.parentElement;
+            body.removeChild(parentDiv);
         }
-            document.getElementById('create').onclick = function(){
-                var tile = document.createElement("div");
-                tile.style.width = "200px";
-                tile.style.height = "400px";
-                tile.style.background = "blue";
-                tile.className = "draggable";
-                tile.innerHTML = '<img src="img/testImage.png" class="tileImage">' +
-                '<button type="button" class="playButton">Play</button>' + 
-                '<input type="text" class="textInput">'+'<button type="button" class="closeButton" onclick="closefunc(this)">close</button>';
-                document.body.appendChild(tile);
-            }
->>>>>>> 84d617399215993340ee10e48215a6c110b74fc5
+        document.getElementById('create').onclick = function(){
+            var tile = document.createElement("div");
+            tile.style.width = "200px";
+            tile.style.height = "400px";
+            tile.style.background = "blue";
+            tile.className = "draggable";
+            tile.innerHTML = '<img src="img/testImage.png" class="tileImage">' +
+            '<button type="button" class="playButton">Play</button>' + 
+            '<input type="text" class="textInput">'+'<button type="button" class="closeButton" onclick="closefunc(this)">close</button>';
+            document.body.appendChild(tile);
+        }
+
             console.log(document.getElementsByClassName("playButton"))
 
             var playbuttons = document.getElementsByClassName("playButton");
@@ -160,7 +134,6 @@
 
             window.dragMoveListener = dragMoveListener;
             
-<<<<<<< HEAD
             function createTile(group,underGroup)
             {
                 var tile = document.createElement("div");
@@ -170,14 +143,13 @@
                 tile.className = "draggable";
                 tile.innerHTML = '<img src='+files[group][underGroup]+ ' class="tileImage">' +
                 '<button type="button" class="playButton">Play</button>' + 
+                '<button type="button" onclick="closefunc(this)">Close</button>' + 
 //				'<button type="button" class="play"'	
                 '<input type="text" class="textInput">'
                 document.body.appendChild(tile);
 				console.log(files[group][underGroup]);
             }
             
-=======
->>>>>>> 84d617399215993340ee10e48215a6c110b74fc5
             function saveTiles() {
                 var tiles = document.getElementsByClassName("draggable");
                 var tilesToSave = [];
@@ -195,17 +167,32 @@
                 }
                 console.log(tilesToSave);
             }
-<<<<<<< HEAD
-			
+
 			function removeTile(){
 				document.removeChild()
 			}
 			
             
-=======
-           
->>>>>>> 84d617399215993340ee10e48215a6c110b74fc5
+
         </script>
-           
+                
+
+        <!--<div id="drag-1" class="draggable">
+            <img src="img/testImage.png" class="tileImage">
+            
+            <button type="button" class="playButton">Play</button>
+            <button type="button" id="close" class="closeButton">Close</button>
+            <input type="text" class="textInput">
+            
+        </div>
+        
+        <div id="drag-2" class="draggable">
+            <img src="img/testImage.png" class="tileImage">
+            
+            <button type="button" class="playButton">Play</button>
+            <input type="text" class="textInput">
+            
+        </div>-->
+
     </body>
 </html>

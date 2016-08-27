@@ -12,12 +12,13 @@
     </head>
     <body>
         
-        <h1 class="text-center">Welcome to Goalie!</h1>
-        
+        <h1 class="text-center"><em>Welcome to Goalie!</em></h1>
+        <button type="button" class="createButton" id="create">Add</button>
         <div id="drag-1" class="draggable">
             <img src="img/testImage.png" class="tileImage">
             
             <button type="button" class="playButton">Play</button>
+            <button type="button" id="close" class="closeButton">Close</button>
             <input type="text" class="textInput">
             
         </div>
@@ -31,6 +32,22 @@
         </div>
         
         <script>
+          function closefunc(childButton){
+            var parentDiv = childButton.parentNode;
+            var body = parentDiv.parentNode;
+            body.removeChild(childButton);
+        }
+            document.getElementById('create').onclick = function(){
+                var tile = document.createElement("div");
+                tile.style.width = "200px";
+                tile.style.height = "400px";
+                tile.style.background = "blue";
+                tile.className = "draggable";
+                tile.innerHTML = '<img src="img/testImage.png" class="tileImage">' +
+                '<button type="button" class="playButton">Play</button>' + 
+                '<input type="text" class="textInput">'+'<button type="button" class="closeButton" onclick="closefunc(this)">close</button>';
+                document.body.appendChild(tile);
+            }
             console.log(document.getElementsByClassName("playButton"))
 
             var playbuttons = document.getElementsByClassName("playButton");
@@ -73,19 +90,6 @@
 
             window.dragMoveListener = dragMoveListener;
             
-            function createTile()
-            {
-                var tile = document.createElement("div");
-                tile.style.width = "200px";
-                tile.style.height = "400px";
-                tile.style.background = "blue";
-                tile.className = "draggable";
-                tile.innerHTML = '<img src="img/testImage.png" class="tileImage">' +
-                '<button type="button" class="playButton">Play</button>' + 
-                '<input type="text" class="textInput">'
-                document.body.appendChild(tile);
-            }
-            
             function saveTiles() {
                 var tiles = document.getElementsByClassName("draggable");
                 var tilesToSave = [];
@@ -103,7 +107,7 @@
                 }
                 console.log(tilesToSave);
             }
-            
+           
         </script>
         
     </body>

@@ -24,6 +24,10 @@
 
 
         <script>
+            
+        $.get("/getImagesJSON", function(data, status) {
+            files = JSON.parse(data);
+            console.log(files);
 
 
 
@@ -31,7 +35,7 @@
         ["img/Arrows/arrows.png", "img/Arrows/BLUE_arrow.png", "img/Arrows/GREEN_arrow.png", "img/Arrows/GREY_arrow.png","img/Arrows/RED_arrows.png"];
         var Basic_routine =                          ["img/Basic_routine/basicRoutine.png","img/Basic_routine/dirty_laundry.png","img/Basic_routine/dishwasher_put_away.png","img/Basic_routine/dryer.png","img/Basic_routine/duffle_bag_1.png","img/Basic_routine/lunch_bag.png","img/Basic_routine/put_away_laundry.png","img/Basic_routine/put_in_dishwasher.png","img/Basic_routine/put_laundry_in_bin.png","img/Basic_routine/recycling(1).png","img/Basic_routine/recycling.png","img/Basic_routine/rx.png","img/Basic_routine/shower.png","img/Basic_routine/soccer.png","img/Basic_routine/swimming.png","img/Basic_routine/wash_sheets.png","img/Basic_routine/washing_machine.png"];
         var Computer_tasks = ["img/Computer_tasks/compTasks.png","img/Computer_tasks/download.png","img/Computer_tasks/excel.png","img/Computer_tasks/google_map.png","img/Computer_tasks/kurzweil3000.png","img/Computer_tasks/look_at.png","img/Computer_tasks/matlab.png","img/Computer_tasks/powerpoint.png","img/Computer_tasks/transfer.png","img/Computer_tasks/upload.png","img/Computer_tasks/word_doc.png"];
-        var files = [Arrows,Basic_routine,Computer_tasks];
+        var oldFiles = [Arrows,Basic_routine,Computer_tasks];
 
         for (var i = 0; i < 3; i++) {
 
@@ -42,6 +46,54 @@
 
 		}          
 		
+    
+			
+        document.getElementById('create').onclick = function(){
+            var tile = document.createElement("div");
+            tile.style.width = "200px";
+            tile.style.height = "400px";
+            tile.style.background = "blue";
+            tile.className = "draggable";
+            tile.innerHTML = '<img src="img/testImage.png" class="tileImage">' +
+            '<button type="button" class="playButton">Play</button>' + 
+            '<input type="text" class="textInput">'+'<button type="button" class="closeButton" onclick="closefunc(this)">close</button>';
+            document.body.appendChild(tile);
+        }
+
+            console.log(document.getElementsByClassName("playButton"))
+
+            var playbuttons = document.getElementsByClassName("playButton");
+            for (var i = 0; i < playbuttons.length; i++)
+            {
+                playbuttons[i].onclick = function() {
+                    var text = this.parentElement.getElementsByClassName("textInput")[0].value;
+                    var speech = new SpeechSynthesisUtterance(text);
+                    window.speechSynthesis.speak(speech);
+                }
+            }
+                
+            
+            interact('.draggable')
+                .draggable({
+                    inertia: false,
+                    restrict: {
+                        restriction: "parent",
+                        endOnly: true,
+                        elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+                    },
+                    autoScroll: true,
+                    onmove: dragMoveListener,
+                    onend: function (event) {
+                        console.log(event.target.querySelector('input'))
+
+                    }
+                    });
+
+            // Write new procedure calls here
+        }); //End of File Callback
+        
+            
+        // Write new functions here
         function openNav() {
             document.getElementById("mySidenav").style.width = "120px";
 		}
@@ -90,60 +142,21 @@
             var body = parentDiv.parentElement;
             body.removeChild(parentDiv);
         }
-			
-        document.getElementById('create').onclick = function(){
-            var tile = document.createElement("div");
-            tile.style.width = "200px";
-            tile.style.height = "400px";
-            tile.style.background = "blue";
-            tile.className = "draggable";
-            tile.innerHTML = '<img src="img/testImage.png" class="tileImage">' +
-            '<button type="button" class="playButton">Play</button>' + 
-            '<input type="text" class="textInput">'+'<button type="button" class="closeButton" onclick="closefunc(this)">close</button>';
-            document.body.appendChild(tile);
-        }
-
-            console.log(document.getElementsByClassName("playButton"))
-
-            var playbuttons = document.getElementsByClassName("playButton");
-            for (var i = 0; i < playbuttons.length; i++)
-            {
-                playbuttons[i].onclick = function() {
-                    var text = this.parentElement.getElementsByClassName("textInput")[0].value;
-                    var speech = new SpeechSynthesisUtterance(text);
-                    window.speechSynthesis.speak(speech);
-                }
-            }
-                
             
-            interact('.draggable')
-                .draggable({
-                    inertia: false,
-                    restrict: {
-                        restriction: "parent",
-                        endOnly: true,
-                        elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
-                    },
-                    autoScroll: true,
-                    onmove: dragMoveListener,
-                    onend: function (event) {
-                        console.log(event.target.querySelector('input'))
-
-                    }
-                    });
-
-                    function dragMoveListener (event) {
-                        var target = event.target,
-                        // keep the dragged position in the data-x/data-y attributes
-                            x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-                            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
-                        target.style.webkitTransform = target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
-                        target.setAttribute('data-x', x);
-                        target.setAttribute('data-y', y);
-                        target.getAttribute('data-x'), target.getAttribute('data-x')
-                    }
+            function dragMoveListener (event)
+            {
+                var target = event.target,
+                // keep the dragged position in the data-x/data-y attributes
+                    x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+                    y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+                target.style.webkitTransform = target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+                target.setAttribute('data-x', x);
+                target.setAttribute('data-y', y);
+                target.getAttribute('data-x'), target.getAttribute('data-x')
+            }
 
             window.dragMoveListener = dragMoveListener;
+            
             
             function createTile(group,underGroup)
             {

@@ -3,13 +3,12 @@ $.get("/getImagesJSON", function(data, status) {
     console.log(files);
 
 
-    for (var i = 0; i < files.length; i++) {
-
+    for (var i = 0; i < files.length; i++) 
+    {
         document.getElementById("mySidenav").innerHTML += 
         '<img src=' + files[i][0]+ ' class="tileImage" ' + 'onmouseover=openNav2('+i+') ' + ' onmouseout=closeNav2() ' + '>' + 
         '<br>' +
         '<br>'
-
     }          
 
 
@@ -120,6 +119,7 @@ function dragMoveListener (event)
     target.setAttribute('data-x', x);
     target.setAttribute('data-y', y);
     target.getAttribute('data-x'), target.getAttribute('data-x')
+	
 }
 
 window.dragMoveListener = dragMoveListener;

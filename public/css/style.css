@@ -10,7 +10,13 @@ html, body {
     background-color: #FF0000;
     height: 400px;
     width: 300px;
-    padding: 8px;
+	padding: 8px;
+	position:absolute;
+	top: 400px;
+    right: 400px;
+
+	
+	
 }
 
 .tileImage {
@@ -37,6 +43,7 @@ html, body {
     overflow-y: scroll;
     transition: 0.5s;
     padding-top: 160px; 
+	
 }
 
 

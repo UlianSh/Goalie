@@ -1,5 +1,4 @@
-            
-        $.get("/getImagesJSON", function(data, status) {
+$.get("/getImagesJSON", function(data, status) {
             files = JSON.parse(data);
             console.log(files);
 
@@ -139,7 +138,6 @@
                 tile.style.height = "200px";
                 tile.style.background = "blue";
                 tile.className = "draggable";
-                //tile.style.backgroundPosition = center;
                 tile.innerHTML = '<img src='+files[group][underGroup]+ ' class="tileImage">' +
                 '<button type="button" class="playButton">Play</button>' + 
                 '<button type="button" onclick="closefunc(this)">Close</button>' + 

@@ -10,11 +10,11 @@
         <link  rel="stylesheet" href="css/style.css" />
         <script type="text/javascript" src="js/app.js"></script>
     </head>
-    <body>
+    <body style="background-color:powderblue">
         
 
-        <h1 class="text-center"><em>Welcome to Goalie!</em></h1>
-        
+        <h1 class="text-center" style = "font-family: courier; ">Welcome to Goalie!</h1>
+        <p><center><em>By Mason Brothers, Ulian Shahnovich and Paul Natarajan</center></p>
         <div id="mySidenav" class="sidenav" onmouseover="openNav()" ></div>
         
         <div id="mySidenav2" class="sidenav2" onmouseover="keepNavOpen()" onmouseout="closeNav2()">
@@ -152,6 +152,7 @@
                 tile.style.height = "200px";
                 tile.style.background = "blue";
                 tile.className = "draggable";
+                //tile.style.backgroundPosition = center;
                 tile.innerHTML = '<img src='+files[group][underGroup]+ ' class="tileImage">' +
                 '<button type="button" class="playButton">Play</button>' + 
                 '<button type="button" onclick="closefunc(this)">Close</button>' + 

@@ -126,6 +126,7 @@ function dragMoveListener (event)
     target.setAttribute('data-x', x);
     target.setAttribute('data-y', y);
     target.getAttribute('data-x'), target.getAttribute('data-x')
+	
 }
 
 window.dragMoveListener = dragMoveListener;

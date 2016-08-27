@@ -10,7 +10,7 @@ $.get("/getImagesJSON", function(data, status) {
     var Computer_tasks = ["img/Computer_tasks/compTasks.png","img/Computer_tasks/download.png","img/Computer_tasks/excel.png","img/Computer_tasks/google_map.png","img/Computer_tasks/kurzweil3000.png","img/Computer_tasks/look_at.png","img/Computer_tasks/matlab.png","img/Computer_tasks/powerpoint.png","img/Computer_tasks/transfer.png","img/Computer_tasks/upload.png","img/Computer_tasks/word_doc.png"];
     var oldFiles = [Arrows,Basic_routine,Computer_tasks];
 
-    for (var i = 0; i < 3; i++) {
+    for (var i = 0; i < files.length; i++) {
 
         document.getElementById("mySidenav").innerHTML += 
         '<img src=' + files[i][0]+ ' class="tileImage" ' + 'onmouseover=openNav2('+i+') ' + ' onmouseout=closeNav2() ' + '>' + 

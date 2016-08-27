@@ -61,6 +61,32 @@ app.post('/', function (req, res) {
     res.send('Post: ' + new Date());
 });
 
+app.post('/saveTiles', function (req, res) {
+    var dataOut = JSON.stringify(req.body);
+    fs.writeFile('saveData.JSON', dataOut, (err) => {
+        if (err)
+        {
+            res.send('Error');
+            console.log(err); 
+        }
+        else
+            res.send('Saved!');
+    });
+});
+
+app.get('/saveTiles', function (req, res) {
+    var dataOut = JSON.stringify(req.body);
+    fs.readFile('saveData.JSON', (err, data) => {
+        if (err)
+        {
+            res.send('{"data":"[]"}');
+            console.log(err); 
+        }
+        else
+            res.send(data);
+    });
+});
+
 app.get('/getImagesJSON', function (req, res) {
     var images = getImages();
     var imagesJSON = JSON.stringify(images);

@@ -3,20 +3,12 @@ $.get("/getImagesJSON", function(data, status) {
     console.log(files);
 
 
-
-    var Arrows = 
-    ["img/Arrows/arrows.png", "img/Arrows/BLUE_arrow.png", "img/Arrows/GREEN_arrow.png", "img/Arrows/GREY_arrow.png","img/Arrows/RED_arrows.png"];
-    var Basic_routine =                          ["img/Basic_routine/basicRoutine.png","img/Basic_routine/dirty_laundry.png","img/Basic_routine/dishwasher_put_away.png","img/Basic_routine/dryer.png","img/Basic_routine/duffle_bag_1.png","img/Basic_routine/lunch_bag.png","img/Basic_routine/put_away_laundry.png","img/Basic_routine/put_in_dishwasher.png","img/Basic_routine/put_laundry_in_bin.png","img/Basic_routine/recycling(1).png","img/Basic_routine/recycling.png","img/Basic_routine/rx.png","img/Basic_routine/shower.png","img/Basic_routine/soccer.png","img/Basic_routine/swimming.png","img/Basic_routine/wash_sheets.png","img/Basic_routine/washing_machine.png"];
-    var Computer_tasks = ["img/Computer_tasks/compTasks.png","img/Computer_tasks/download.png","img/Computer_tasks/excel.png","img/Computer_tasks/google_map.png","img/Computer_tasks/kurzweil3000.png","img/Computer_tasks/look_at.png","img/Computer_tasks/matlab.png","img/Computer_tasks/powerpoint.png","img/Computer_tasks/transfer.png","img/Computer_tasks/upload.png","img/Computer_tasks/word_doc.png"];
-    var oldFiles = [Arrows,Basic_routine,Computer_tasks];
-
-    for (var i = 0; i < 3; i++) {
-
+    for (var i = 0; i < files.length; i++) 
+    {
         document.getElementById("mySidenav").innerHTML += 
         '<img src=' + files[i][0]+ ' class="tileImage" ' + 'onmouseover=openNav2('+i+') ' + ' onmouseout=closeNav2() ' + '>' + 
         '<br>' +
         '<br>'
-
     }          
 
 
@@ -33,17 +25,7 @@ $.get("/getImagesJSON", function(data, status) {
         document.body.appendChild(tile);
     }
 
-    console.log(document.getElementsByClassName("playButton"))
 
-    var playbuttons = document.getElementsByClassName("playButton");
-    for (var i = 0; i < playbuttons.length; i++)
-    {
-        playbuttons[i].onclick = function() {
-            var text = this.parentElement.getElementsByClassName("textInput")[0].value;
-            var speech = new SpeechSynthesisUtterance(text);
-            window.speechSynthesis.speak(speech);
-        }
-    }
 
 
     interact('.draggable')
@@ -60,13 +42,24 @@ $.get("/getImagesJSON", function(data, status) {
                 console.log(event.target.querySelector('input'))
 
             }
-            });
+        });
 
     // Write new procedure calls here
 }); //End of File Callback
 
 
 // Write new functions here
+
+
+
+    
+function playfunc(childButton){
+    var text = childButton.parentElement.getElementsByClassName("textInput")[0].value;
+    var speech = new SpeechSynthesisUtterance(text);
+    window.speechSynthesis.speak(speech);
+}
+
+
 function openNav() {
     document.getElementById("mySidenav").style.width = "120px";
 }
@@ -126,6 +119,7 @@ function dragMoveListener (event)
     target.setAttribute('data-x', x);
     target.setAttribute('data-y', y);
     target.getAttribute('data-x'), target.getAttribute('data-x')
+	
 }
 
 window.dragMoveListener = dragMoveListener;
@@ -140,15 +134,26 @@ tile.style.background = "blue";
 tile.className = "draggable";
 //tile.style.position = "absolute";
 tile.innerHTML = '<img src='+files[group][underGroup]+ ' class="tileImage">' +
-'<button type="button" class="playButton">Play</button>' + 
-'<button type="button" onclick="closefunc(this)">Close</button>' + 
+'<button type="button" class="playButton" onclick="playfunc(this)">Play</button>' + 
+'<button type="button" class="closeButton" onclick="closefunc(this)">Close</button>' + 
 //'<button type="button" class="play"'	
 '<input type="text" class="textInput">'
 document.body.appendChild(tile);
     randomlyPlace(tile);
 console.log(files[group][underGroup]);
 }
-            
+
+function defaultText(textInput) {
+    if (textInput.lastIndexOf('/') + 1 >= textInput.length)
+        return ""
+    var fileNameWithoutExtention = textInput.substring(textInput.lastIndexOf('/') + 1 ,textInput.lastIndexOf('.'));
+    var defaultTxt = 
+        fileNameWithoutExtention.replaceAll('_','')
+    return fileNameWithoutExtention;
+}
+
+
+
 function saveTiles() {
     var tiles = document.getElementsByClassName("draggable");
     var tilesToSave = [];
@@ -165,6 +170,22 @@ function saveTiles() {
         tilesToSave.push(aTile);
     }
     console.log(tilesToSave);
+    var outputJSON = {data: JSON.stringify(tilesToSave)};
+    $.post('/saveTiles', outputJSON, function(data) {
+        if(data == 'Saved!')
+            alert('Saved!')
+    });
+}
+
+function loadTiles() {
+    $.get("/saveTiles", function(data, status) {
+        tiles = JSON.parse((JSON.parse(data)).data);
+        for (var i = 0; i < tiles.length; i++)
+        {
+            //Load in tiles
+        }
+        console.log(tiles);
+    });
 }
 
 function removeTile(){

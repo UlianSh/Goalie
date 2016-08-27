@@ -12,69 +12,65 @@
     </head>
     <body>
         
-        <h1 class="text-center">Welcome to Goalie!</h1>
+        <h1 class="text-center" >Welcome to Goalie!</h1>
+        
+        <div id="mySidenav" class="sidenav" onmouseover="openNav()" ></div>
+        
+        <div id="mySidenav2" class="sidenav2" onmouseover="keepNavOpen()" onmouseout="closeNav2()">
 
         <script>
+
+
+
+        var Arrows = 
+        ["img/Arrows/arrows.png", "img/Arrows/BLUE_arrow.png", "img/Arrows/GREEN_arrow.png", "img/Arrows/GREY_arrow.png","img/Arrows/RED_arrows.png"];
+        var Basic_routine =                          ["img/Basic_routine/basicRoutine.png","img/Basic_routine/dirty_laundry.png","img/Basic_routine/dishwasher_put_away.png","img/Basic_routine/dryer.png","img/Basic_routine/duffle_bag_1.png","img/Basic_routine/lunch_bag.png","img/Basic_routine/put_away_laundry.png","img/Basic_routine/put_in_dishwasher.png","img/Basic_routine/put_laundry_in_bin.png","img/Basic_routine/recycling(1).png","img/Basic_routine/recycling.png","img/Basic_routine/rx.png","img/Basic_routine/shower.png","img/Basic_routine/soccer.png","img/Basic_routine/swimming.png","img/Basic_routine/wash_sheets.png","img/Basic_routine/washing_machine.png"];
+        var Computer_tasks = ["img/Computer_tasks/compTasks.png","img/Computer_tasks/download.png","img/Computer_tasks/excel.png","img/Computer_tasks/google_map.png","img/Computer_tasks/kurzweil3000.png","img/Computer_tasks/look_at.png","img/Computer_tasks/matlab.png","img/Computer_tasks/powerpoint.png","img/Computer_tasks/transfer.png","img/Computer_tasks/upload.png","img/Computer_tasks/word_doc.png"];
+        var files = [Arrows,Basic_routine,Computer_tasks];
+
+        for (var i = 0; i < 3; i++) {
+
+            document.getElementById("mySidenav").innerHTML += 
+			'<img src=' + files[i][0]+ ' class="tileImage" ' + 'onmouseover=openNav2('+i+') ' + ' onmouseout=closeNav2() ' + '>' + 
+            '<br>' +
+            '<br>'
+
+		}          
+		
         function openNav() {
-            document.getElementById("mySidenav").style.width = "150px";
-            document.getElementById("mySidenav2").style.width = "120px";
-        }
+            document.getElementById("mySidenav").style.width = "120px";
+		}
 
         function closeNav() {
             document.getElementById("mySidenav").style.width = "0";  
+
         }
-            
-        </script>
+
+        function openNav2(folderNum) {
+            document.getElementById("mySidenav2").style.width = "120px";
+			document.getElementById("mySidenav2").innerHTML=null;
+			for (var ii = 0; ii< files[folderNum].length; ii++) {
+				document.getElementById("mySidenav2").innerHTML += 
+				'<img src='+files[folderNum][ii]+' class="tileImage"  onclick=createTile('+folderNum+','+ii+')> '+
+				'<br>' + 
+				'<br>'
+            }           
+			 	 
+        }
+		
+
+        function closeNav2() {
+            document.getElementById("mySidenav2").style.width = "0";  
+			document.getElementById("mySidenav").style.width = "0";  
+        }    
+			
+		function keepNavOpen(){
+			document.getElementById("mySidenav").style.width = "120px";
+			document.getElementById("mySidenav2").style.width = "120px";
+		}	
+			
         
-        
-        <div id="mySidenav" class="sidenav" onmouseover="openNav()" onmouseout="closeNav()">
    
-            <img src="img/testImage.png" class="tileImage" >
-            <br>
-            <br>
-            <img src="img/testImage.png" class="tileImage">
-            <br>
-            <br>
-            <img src="img/testImage.png" class="tileImage">
-
-
-        </div>
-        
-        <div id="mySidenav2" class="sidenav2" onmouseover="openNav()" onmouseout="closeNav()">
-
-            <img src="img/testImage.png" class="tileImage" >
-            <br>
-            <br>
-            <img src="img/testImage.png" class="tileImage">
-            <br>
-            <br>
-            <img src="img/testImage.png" class="tileImage">
-
-
-        </div>
-        
-        
-        
-        
-        
-        
-        <!--<div id="drag-1" class="draggable">
-            <img src="img/testImage.png" class="tileImage">
-            
-            <button type="button" class="playButton">Play</button>
-            <input type="text" class="textInput">
-            
-        </div>
-        
-        <div id="drag-2" class="draggable">
-            <img src="img/testImage.png" class="tileImage">
-            
-            <button type="button" class="playButton">Play</button>
-            <input type="text" class="textInput">
-            
-        </div>-->
-        
-        <script>
             console.log(document.getElementsByClassName("playButton"))
 
             var playbuttons = document.getElementsByClassName("playButton");
@@ -117,17 +113,19 @@
 
             window.dragMoveListener = dragMoveListener;
             
-            function createTile()
+            function createTile(group,underGroup)
             {
                 var tile = document.createElement("div");
                 tile.style.width = "200px";
-                tile.style.height = "400px";
+                tile.style.height = "200px";
                 tile.style.background = "blue";
                 tile.className = "draggable";
-                tile.innerHTML = '<img src="img/testImage.png" class="tileImage">' +
+                tile.innerHTML = '<img src='+files[group][underGroup]+ ' class="tileImage">' +
                 '<button type="button" class="playButton">Play</button>' + 
+//				'<button type="button" class="play"'	
                 '<input type="text" class="textInput">'
                 document.body.appendChild(tile);
+				console.log(files[group][underGroup]);
             }
             
             function saveTiles() {
@@ -147,6 +145,11 @@
                 }
                 console.log(tilesToSave);
             }
+			
+			function removeTile(){
+				document.removeChild()
+			}
+			
             
         </script>
            

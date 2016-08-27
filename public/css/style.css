@@ -1,12 +1,13 @@
 html, body {
     margin: 0;
     height: 100%;
+    font-family: "Lato", sans-serif;
 }
 
 
 .draggable {
     color: #FF0000;
-    background-color: #4e4;
+    background-color: #FF0000;
     height: 400px;
     width: 300px;
     padding: 8px;
@@ -15,58 +16,54 @@ html, body {
 .tileImage {
     width: 100px;
     height: 100px;
+	
 }
 
 .textInput {
     width: 100%;
 }
 
-// ulian add
+/* ulian add*/
 
 .sidenav {
+    height: 100%;
+    width: 0;
+    min-width: 10px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0px;
+    background-color: #055;
+    overflow-y: scroll;
+    transition: 0.5s;
+    padding-top: 160px; 
+}
+
+
+.sidenav2 {
     height: 100%;
     width: 0;
     position: fixed;
     z-index: 1;
     top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
+    left: 120px;
+    background-color: #055;
+    overflow-y: scroll;
     transition: 0.5s;
-    padding-top: 60px;
-}
-
-.sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s
-}
-
-.sidenav a:hover, .offcanvas a:focus{
-    color: #f1f1f1;
-}
-
-.sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-}
-
-#main {
-    transition: margin-left .5s;
-    padding: 16px;
+    padding-top: 160px;
+    
 }
 
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+  .sidenav a {font-size: 180px;}
 }
-</style>
+
+
+
+
+
+
 
 
 

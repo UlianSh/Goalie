@@ -138,12 +138,14 @@ tile.style.width = "200px";
 tile.style.height = "200px";
 tile.style.background = "blue";
 tile.className = "draggable";
+//tile.style.position = "absolute";
 tile.innerHTML = '<img src='+files[group][underGroup]+ ' class="tileImage">' +
 '<button type="button" class="playButton">Play</button>' + 
 '<button type="button" onclick="closefunc(this)">Close</button>' + 
 //'<button type="button" class="play"'	
 '<input type="text" class="textInput">'
 document.body.appendChild(tile);
+    randomlyPlace(tile);
 console.log(files[group][underGroup]);
 }
             
@@ -169,4 +171,8 @@ function removeTile(){
     document.removeChild()
 }
 			
-            
+ function randomlyPlace(el)
+    {
+    el.style.top = Math.floor(Math.random()*document.body.clientHeight);
+    el.style.left = Math.floor(Math.random()*document.body.clientWidth);
+  }

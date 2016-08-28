@@ -10,9 +10,8 @@ $.get("/getImagesJSON", function(data, status) {
         '<br>' +
         '<br>'
     }          
-
-
-
+	
+	
     document.getElementById('create').onclick = function(){
         var tile = document.createElement("div");
         tile.style.width = "200px";
@@ -21,7 +20,7 @@ $.get("/getImagesJSON", function(data, status) {
         tile.className = "draggable";
         tile.innerHTML = '<img src="img/testImage.png" class="tileImage">' +
         '<button type="button" class="playButton">Play</button>' + 
-        '<input type="text" class="textInput">'+'<button type="button" class="closeButton" onclick="closefunc(this)">close</button>';
+        '<input type="text" class="textInput">'+'<button type="button" class="closeButton" onclick="closeFunc(this)">close</button>';
         document.body.appendChild(tile);
     }
 
@@ -49,6 +48,7 @@ $.get("/getImagesJSON", function(data, status) {
 
 
 // Write new functions here
+
 
 
 
@@ -103,10 +103,19 @@ function keepNavOpen(){
 }	
 
 
-function closefunc(childButton){
+var lastClosedTile = document.createElement("div");
+//tile.style.width = "200px";
+function backButton(){
+	if(lastClosedTile.style.width>1);
+    	document.body.appendChild(this.lastClosedTile);
+}
+
+
+function closeFunc(childButton){
     var parentDiv = childButton.parentElement;
     var body = parentDiv.parentElement;
-    body.removeChild(parentDiv);
+	this.lastClosedTile = parentDiv; 
+    body.removeChild(parentDiv);		
 }
             
 function dragMoveListener (event)
@@ -130,11 +139,13 @@ function createTile(group,underGroup)
 var tile = document.createElement("div");
 tile.style.width = "200px";
 tile.style.height = "200px";
+tile.style.top += Math.floor(((Math.random()*2-1) * 10+ 400))+'px';
+tile.style.left += Math.floor(((Math.random()*2-1) * 10 + 400))+'px';
 tile.style.background = "blue";
 tile.className = "draggable";
 tile.innerHTML = '<img src='+files[group][underGroup]+ ' class="tileImage">' +
 '<button type="button" class="playButton" onclick="playfunc(this)">Play</button>' + 
-'<button type="button" class="closeButton" onclick="closefunc(this)">Close</button>' + 
+'<button type="button" class="closeButton" onclick="closeFunc(this)">X</button>' + 
 //'<button type="button" class="play"'	
 '<input type="text" class="textInput">'
 document.body.appendChild(tile);
@@ -190,4 +201,18 @@ function removeTile(){
     document.removeChild()
 }
 			
-            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

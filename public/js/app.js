@@ -11,26 +11,11 @@ $.get("/getImagesJSON", function(data, status) {
         '<br>'
     }          
 
-    document.getElementById('create').onclick = function(){
-        var tile = document.createElement("div");
-        tile.style.width = "200px";
-        tile.style.height = "400px";
-        tile.style.background = "blue";
-        tile.className = "draggable";
-        tile.innerHTML = '<img src="img/testImage.png" class="tileImage">' +
-        '<button type="button" class="playButton">Play</button>' + 
-        '<input type="text" class="textInput">'+'<button type="button" class="closeButton" onclick="closefunc(this)">Close</button>';
-        document.body.appendChild(tile);
-    }
-
-
-
-
     interact('.draggable')
         .draggable({
             inertia: false,
             restrict: {
-                restriction: "parent",
+                //restriction: "parent",
                 endOnly: true,
                 elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
             },

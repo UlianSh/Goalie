@@ -18,14 +18,11 @@
 
         <h1 class="text-center" style = "font-family: courier; ">Welcome to Goalie!</h1>
         <p><center><em>By Mason Brothers, Ulian Shahnovich and Paul Natarajan</em></center></p>
-		
         <div id="mySidenav" class="sidenav" onmouseover="openNav()" ></div>
-        <button type="button" id="createNewProject" onclick="createNewProject()">Create New Project</button>
-
         <div id="mySidenav2" class="sidenav2" onmouseover="keepNavOpen()" onmouseout="closeNav2()"></div>
         
 		<!-- Trigger/Open The Modal -->
-		<button id="myBtn">Open Modal</button>
+		<button id="myBtn">Create</button>
 
 		<!-- The Modal -->
 		<div id="myModal" class="modal">
@@ -34,19 +31,20 @@
 		  <div class="modal-content">
 			<div class="modal-header">
 			  <span class="close">×</span>
-			  <h2>Modal Header</h2>
+			  <h2>What is your new project name?</h2>
 			</div>
 			<div class="modal-body">
-			  <p>Some text in the Modal Body</p>
-			  <p>Some other text...</p>
+				<input type="text" id="newProjectNameTextField">
+				<button onclick="CreateNewProjectNameBtn()">Create New Project Name</button>
 			</div>
 			<div class="modal-footer">
-			  <h3>Modal Footer</h3>
+			  <h3></h3>
 			</div>
 		  </div>
 		</div>
 		
-		
+		<select id="mySelect" onchange="onChangeDropdown()">
+		</select>
 		
 
     </body>

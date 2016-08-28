@@ -13,10 +13,14 @@ html, body {
 	padding: 8px;
 	position:absolute;
 	top: 400px;
+<<<<<<< HEAD
     left: 400px;
 
 	
 	
+=======
+    right: 400px;
+>>>>>>> 7e280b72cd37fca6834929dbd9250189dd178c29
 }
 
 .tileImage {

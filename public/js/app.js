@@ -11,8 +11,6 @@ $.get("/getImagesJSON", function(data, status) {
         '<br>'
     }          
 
-
-
     document.getElementById('create').onclick = function(){
         var tile = document.createElement("div");
         tile.style.width = "200px";
@@ -21,7 +19,7 @@ $.get("/getImagesJSON", function(data, status) {
         tile.className = "draggable";
         tile.innerHTML = '<img src="img/testImage.png" class="tileImage">' +
         '<button type="button" class="playButton">Play</button>' + 
-        '<input type="text" class="textInput">'+'<button type="button" class="closeButton" onclick="closefunc(this)">close</button>';
+        '<input type="text" class="textInput">'+'<button type="button" class="closeButton" onclick="closefunc(this)">Close</button>';
         document.body.appendChild(tile);
     }
 
@@ -52,8 +50,9 @@ $.get("/getImagesJSON", function(data, status) {
 
 
 
+
     
-function playfunc(childButton){
+function playFunc(childButton){
     var text = childButton.parentElement.getElementsByClassName("textInput")[0].value;
     var speech = new SpeechSynthesisUtterance(text);
     window.speechSynthesis.speak(speech);
@@ -72,7 +71,8 @@ function closeNav() {
 function openNav2(folderNum) {
     document.getElementById("mySidenav2").style.width = "120px";
     document.getElementById("mySidenav2").innerHTML=null;
-    for (var ii = 1; ii< files[folderNum].length; ii++) {
+    for (var ii = 1; ii< files[folderNum].length; ii++) 
+    {
         document.getElementById("mySidenav2").innerHTML += 
         '<img src='+files[folderNum][ii]+' class="tileImage"  onclick=createTile('+folderNum+','+ii+') onmouseover=enlargeIcon(this) onmouseout=minimizwIcon(this)> '+
         '<br>' + 
@@ -103,10 +103,19 @@ function keepNavOpen(){
 }	
 
 
-function closefunc(childButton){
+var lastClosedTile = document.createElement("div");
+//tile.style.width = "200px";
+function backButton(){
+	if(lastClosedTile.style.width>1);
+    	document.body.appendChild(this.lastClosedTile);
+}
+
+
+function closeFunc(childButton){
     var parentDiv = childButton.parentElement;
     var body = parentDiv.parentElement;
-    body.removeChild(parentDiv);
+	this.lastClosedTile = parentDiv; 
+    body.removeChild(parentDiv);		
 }
             
 function dragMoveListener (event)
@@ -130,16 +139,23 @@ function createTile(group,underGroup)
 var tile = document.createElement("div");
 tile.style.width = "200px";
 tile.style.height = "200px";
+tile.style.top += Math.floor(((Math.random()*2-1) * 10+ 400))+'px';
+tile.style.left += Math.floor(((Math.random()*2-1) * 10 + 400))+'px';
 tile.style.background = "blue";
 tile.className = "draggable";
-//tile.style.position = "absolute";
+if(files[group][0] != "img/Arrows/BLUE_arrow.png")
+{
 tile.innerHTML = '<img src='+files[group][underGroup]+ ' class="tileImage">' +
-'<button type="button" class="playButton" onclick="playfunc(this)">Play</button>' + 
-'<button type="button" class="closeButton" onclick="closefunc(this)">Close</button>' + 
-//'<button type="button" class="play"'	
+'<button type="button" class="playButton" onclick="playFunc(this)">Play</button>' + 
+'<button type="button" class="closeButton" onclick="closeFunc(this)">X</button>' + 
 '<input type="text" class="textInput">'
+}
+    else
+        {
+            tile.innerHTML = '<img src='+files[group][underGroup]+ ' class="tileImage">'
+        }
 document.body.appendChild(tile);
-    randomlyPlace(tile);
+randomlyPlace(tile);
 console.log(files[group][underGroup]);
 }
 
@@ -191,9 +207,10 @@ function loadTiles() {
 function removeTile(){
     document.removeChild()
 }
-			
+
  function randomlyPlace(el)
     {
-    el.style.top = Math.floor(Math.random()*document.body.clientHeight);
-    el.style.left = Math.floor(Math.random()*document.body.clientWidth);
+    el.style.top = Math.floor(Math.random()*document.body.clientHeight) +'px';
+    el.style.left = Math.floor(Math.random()*document.body.clientWidth) + 'px';
   }
+

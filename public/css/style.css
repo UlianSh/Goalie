@@ -13,10 +13,7 @@ html, body {
 	padding: 8px;
 	position:absolute;
 	top: 400px;
-    right: 400px;
-
-	
-	
+    left: 400px;
 }
 
 .tileImage {
@@ -41,7 +38,7 @@ html, body {
     left: 0px;
     background-color: #055;
     overflow-y: scroll;
-    transition: 0.5s;
+    transition: 0.7s;
     padding-top: 160px; 
 	
 }
@@ -56,10 +53,21 @@ html, body {
     left: 120px;
     background-color: #055;
     overflow-y: scroll;
-    transition: 0.5s;
+    transition: 0.7s;
     padding-top: 160px;
     
 }
+
+.returnButton{
+	height:'50px'; 
+    width: '50px';
+	right: '50px';
+	padding-right: '50px';
+	top"50px"
+	position: relative;
+	
+}
+
 
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}

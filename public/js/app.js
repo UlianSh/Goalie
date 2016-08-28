@@ -29,35 +29,35 @@ $.get("/getImagesJSON", function(data, status) {
             }
         });
 
-    // Write new procedure calls here
-	
+	// Write new procedure calls here
+
+
 	
 	// Get the modal
-var modal = document.getElementById('myModal');
+	var modal = document.getElementById('myModal');
 
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
+	// Get the button that opens the modal
+	var btn = document.getElementById("myBtn");
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
 
-// When the user clicks the button, open the modal
-btn.onclick = function() {
-    modal.style.display = "block";
-}
+	// When the user clicks the button, open the modal
+	btn.onclick = function() {
+		modal.style.display = "block";
+	}
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+		modal.style.display = "none";
+	}
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+		if (event.target == modal) {
+			modal.style.display = "none";
+		}
+	}
 
 	
 	
@@ -68,16 +68,34 @@ window.onclick = function(event) {
 
 // Write new functions here
 
+//
+//document.getElementById("mySidenav").innerHTML += 
+//        '<img src=' + files[i][0]+ ' class="tileImage" ' + 'onmouseover=openNav2('+i+') ' + ' onmouseout=closeNav2() ' + '>' + 
+//        '<br>' +
+//        '<br>'
 
 
 
 
 
+function onChangeDropdown(){
+	
+}
 
 
 
+function CreateNewProjectNameBtn() {
+    var x = document.getElementById("newProjectNameTextField").value;
+	document.getElementById("newProjectNameTextField").value = "";
+	var modal = document.getElementById('myModal');
+	if (x!="")
+		{
+			modal.style.display = "none";
+			document.getElementById("mySelect").innerHTML += '<option value="'+x+'">'+x;
+			console.log("new proj name added:" + x);
+		}
+}
 
-    
 function playFunc(childButton){
     window.speechSynthesis.cancel();
     setTimeout(function() {

@@ -26,21 +26,23 @@
             <select id="mySelect" onchange="onChangeDropdown()">
             </select>
             <button type="button" class="returnButton" onclick="backButton()" > &#8630</button>
+			<br>
+			<button id="myDeleteBtn">Delete Project</button>
         </div>
 
 		
-		<!-- The Modal -->
+		<!-- The Modal creare project -->
 		<div id="myModal" class="modal">
 
 		  <!-- Modal content -->
 		  <div class="modal-content">
 			<div class="modal-header">
-			  <span class="close">×</span>
+			  <span id="close" class="close">×</span>
 			  <h2>What is your new project name?</h2>
 			</div>
-			<div class="modal-body">
+			<div  class="modal-body">
 				<input type="text" id="newProjectNameTextField">
-				<button onclick="CreateNewProjectNameBtn()">Create New Project Name</button>
+				<button onclick="CreateNewProjectNameBtn()">The New Project Name</button>
 			</div>
 			<div class="modal-footer">
 			  <h3></h3>
@@ -48,6 +50,26 @@
 		  </div>
 		</div>
 
+		<!-- The Modal creare project -->
+		<div id="myModal2" class="modal">
+
+		  <!-- Modal content -->
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <span id="close2" class="close">×</span>
+			  <h2>Are you sure you want delete project?</h2>
+			</div>
+			<div class="modal-body">
+				<button onclick="onClickDeleteBtn()">Delete Project</button>
+			</div>
+			<div class="modal-footer">
+			  <h3></h3>
+			</div>
+		  </div>
+		</div>
+		
+		
+		
 
     </body>
 </html>

@@ -226,8 +226,8 @@ function createTile(imgSrc)
 function loadTile(loadedTile)
 {
     var tile = createTile(loadedTile.img);
-    moveTile(tile,loadTile.x,loadedTile.y)
-    tile.getElementsByClassName('textInput')[0].value = loadedTile.text;
+    if (typeof(loadedTile.text) !== 'undefined')
+        tile.getElementsByClassName('textInput')[0].value = loadedTile.text;
     tile.style.background = loadedTile.color;
     moveTile(tile,loadedTile.x,loadedTile.y)
     return tile;
@@ -253,10 +253,13 @@ function saveTiles() {
         {
             x: tiles[i].getAttribute('data-x'),
             y: tiles[i].getAttribute('data-y'),
-            text: tiles[i].getElementsByClassName('textInput')[0].value,//This last one is a 0
             img: tiles[i].getElementsByClassName('tileImage')[0].getAttribute('src'),
             color: tiles[i].style.background
         }
+	if (typeof(tiles[i].getElementsByClassName('textInput')[0]) !== 'undefined')
+	{
+	    aTile.text = tiles[i].getElementsByClassName('textInput')[0].value//This last one is a 0
+	}
         tilesToSave.push(aTile);
     }
     console.log(tilesToSave);

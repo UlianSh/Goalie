@@ -1,3 +1,7 @@
+document.getElementById("saveButton").onclick = function() {
+    saveTiles();
+}
+
 loadTiles();
 
 $.get("/getImagesJSON", function(data, status) {

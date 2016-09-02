@@ -116,6 +116,7 @@ function onClickDeleteBtn(){
 
 function onChangeDropdown(){
 	// Restart the GUI based on the selection.
+	// need to check the selected project, the call might accur on new proj btn.
 	var x = document.getElementById("mySelect").value;
 	console.log(x);
 	
@@ -165,7 +166,7 @@ function openNav2(folderNum) {
     {
         var imgSrc = files[folderNum][ii];
         document.getElementById("mySidenav2").innerHTML += 
-        '<img src="' + imgSrc + '" class="tileImage"  onclick="createTile(\'' + imgSrc + '\')" onmouseover="enlargeIcon(this)" onmouseout="minimizwIcon(this)"> '+
+        '<img src="' + imgSrc + '" class="tileImage"  onclick="createTile(\'' + imgSrc + '\''+','+'true)" onmouseover="enlargeIcon(this)" onmouseout="minimizwIcon(this)"> '+
         '<br>' + 
         '<br>'
     }           	 
@@ -181,7 +182,6 @@ function enlargeIcon(a){
     a.style.width="105px";
     a.style.height="105px";
 }
-
 
 function closeNav2() {
     document.getElementById("mySidenav2").style.width = "0";  
@@ -229,13 +229,15 @@ function moveTile(target,x,y)
 window.dragMoveListener = dragMoveListener;
 
             
-function createTile(imgSrc)
+function createTile(imgSrc,newOrOld)
 {
     var tile = document.createElement("div");
     tile.style.width = "200px";
     tile.style.height = "200px";
-    //tile.style.top += Math.floor(((Math.random()*2-1) * 10+ 400))+'px';
-    //tile.style.left += Math.floor(((Math.random()*2-1) * 10 + 400))+'px';
+	if (newOrOld){
+		tile.style.top += Math.floor(((Math.random()*2-1) * 10+ 400))+'px';
+    	tile.style.left += Math.floor(((Math.random()*2-1) * 10 + 400))+'px';	
+	}
     tile.style.background = "blue";
     tile.className = "draggable";
     console.log('test:',imgSrc.indexOf('arrow'))
@@ -262,7 +264,7 @@ function createTile(imgSrc)
 
 function loadTile(loadedTile)
 {
-    var tile = createTile(loadedTile.img);
+    var tile = createTile(loadedTile.img,false);
     moveTile(tile,loadTile.x,loadedTile.y)
     tile.getElementsByClassName('textInput')[0].value = loadedTile.text;
     tile.style.background = loadedTile.color;

@@ -64,6 +64,17 @@ $.get("/getImagesJSON", function(data, status) {
 		}
 	}
 	
+	document.getElementById("newProjectNameTextField")
+    .addEventListener("keyup", function(event) {
+    //event.preventDefault();
+    if (event.keyCode == 13) {
+        document.getElementById("CreateNewProjectNameBtnID").click();// ();
+    }
+	});
+	
+	
+	
+	
 	// SECOND MODAL FUNCTIONS- REMOVE PROJECT WARNING
 	// Get the modal
 	var modal2 = document.getElementById('myModal2');
@@ -98,7 +109,7 @@ function onClickDeleteBtn(){
 		select.removeChild(select[value]);
 		console.log("index deleted: "+value);	
 		
-		// LOAD 
+		// LOAD "value"
 	}
 	document.getElementById('myModal2').style.display = "none";
 }
@@ -107,6 +118,7 @@ function onChangeDropdown(){
 	// Restart the GUI based on the selection.
 	var x = document.getElementById("mySelect").value;
 	console.log(x);
+	
 }
 
 
@@ -118,7 +130,10 @@ function CreateNewProjectNameBtn() {
 	if (x!="")
 		{
 			modal.style.display = "none";
-			document.getElementById("mySelect").innerHTML += '<option value="'+x+'">'+x;
+			select = document.getElementById("mySelect");
+			select.innerHTML += '<option value="'+x+'">'+x;
+			var l = select.length;
+			select.selectedIndex = l-1;
 			console.log("new proj name added:" + x);
 		}
 }

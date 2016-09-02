@@ -34,18 +34,18 @@ $.get("/getImagesJSON", function(data, status) {
         });
 
 	// Write new procedure calls here
-
-
 	
+	
+	//FIRST MODAL FUNCTIONS-CREATE PROJECT
 	// Get the modal
 	var modal = document.getElementById('myModal');
-
+	
 	// Get the button that opens the modal
 	var btn = document.getElementById("myBtn");
-
+	
 	// Get the <span> element that closes the modal
-	var span = document.getElementsByClassName("close")[0];
-
+	var span = document.getElementById("close");
+	
 	// When the user clicks the button, open the modal
 	btn.onclick = function() {
 		modal.style.display = "block";
@@ -58,13 +58,32 @@ $.get("/getImagesJSON", function(data, status) {
 
 	// When the user clicks anywhere outside of the modal, close it
 	window.onclick = function(event) {
-		if (event.target == modal) {
+		if (event.target == modal || event.target == modal2) {
 			modal.style.display = "none";
+			modal2.style.display = "none";
 		}
 	}
+	
+	// SECOND MODAL FUNCTIONS- REMOVE PROJECT WARNING
+	// Get the modal
+	var modal2 = document.getElementById('myModal2');
+	
+	// Get the button that opens the modal
+	var btn2 = document.getElementById("myDeleteBtn");
+	
+	// Get the <span> element that closes the modal
+	var span2 = document.getElementById("close2");
+	
+	// When the user clicks the button, open the modal
+	btn2.onclick = function() {
+		modal2.style.display = "block";
+	}
 
-	
-	
+	// When the user clicks on <span> (x), close the modal
+	span2.onclick = function() {
+		modal2.style.display = "none";
+	}
+
 	
 	
 }); //End of File Callback
@@ -72,18 +91,22 @@ $.get("/getImagesJSON", function(data, status) {
 
 // Write new functions here
 
-//
-//document.getElementById("mySidenav").innerHTML += 
-//        '<img src=' + files[i][0]+ ' class="tileImage" ' + 'onmouseover=openNav2('+i+') ' + ' onmouseout=closeNav2() ' + '>' + 
-//        '<br>' +
-//        '<br>'
-
-
-
-
+function onClickDeleteBtn(){
+	select = document.getElementById("mySelect");
+	value = select.selectedIndex;
+	if (value>-1){
+		select.removeChild(select[value]);
+		console.log("index deleted: "+value);	
+		
+		// LOAD 
+	}
+	document.getElementById('myModal2').style.display = "none";
+}
 
 function onChangeDropdown(){
-	
+	// Restart the GUI based on the selection.
+	var x = document.getElementById("mySelect").value;
+	console.log(x);
 }
 
 
@@ -162,7 +185,6 @@ function backButton(){
 	if(lastClosedTile.style.width>1);
     	document.body.appendChild(this.lastClosedTile);
 }
-
 
 function closeFunc(childButton){
     var parentDiv = childButton.parentElement;

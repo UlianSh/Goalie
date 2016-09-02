@@ -21,14 +21,13 @@
         <div id="mySidenav2" class="sidenav2" onmouseover="keepNavOpen()" onmouseout="closeNav2()"></div>
         
         <div id="selectorBar">
-            <button id="myBtn">Create</button>
+            <button id="myBtn" class = "glyphicon glyphicon-certificate"></button>
             <select id="mySelect" onchange="onChangeDropdown()">
             </select>
-
+			<button id="myDeleteBtn" class="glyphicon glyphicon-remove"></button>
             <button type="button" id="saveButton"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
             <button type="button" class="returnButton" onclick="backButton()" ><span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span></button>
-			<br>
-			<button id="myDeleteBtn">Delete Project</button>
+			
 
         </div>
 
@@ -44,7 +43,7 @@
 			</div>
 			<div  class="modal-body">
 				<input type="text" id="newProjectNameTextField">
-				<button onclick="CreateNewProjectNameBtn()">The New Project Name</button>
+				<button id="CreateNewProjectNameBtnID" onclick="CreateNewProjectNameBtn()">The New Project Name</button>
 			</div>
 			<div class="modal-footer">
 			  <h3></h3>
@@ -59,7 +58,7 @@
 		  <div class="modal-content">
 			<div class="modal-header">
 			  <span id="close2" class="close">×</span>
-			  <h2>Are you sure you want delete project?</h2>
+			  <h2>Are you sure you want to delete this project?</h2>
 			</div>
 			<div class="modal-body">
 				<button onclick="onClickDeleteBtn()">Delete Project</button>
@@ -70,7 +69,6 @@
 		  </div>
 		</div>
 		
-
         <script type="text/javascript" src="js/app.js"></script>
 
     </body>

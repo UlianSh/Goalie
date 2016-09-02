@@ -9,13 +9,13 @@ $.get("/getImagesJSON", function(data, status) {
     console.log(files);
 
 
-    for (var i = 0; i < files.length; i++) 
+    for (var i = 0; i < files.length; i++)
     {
-        document.getElementById("mySidenav").innerHTML += 
-        '<img src=' + files[i][0]+ ' class="tileImage" ' + 'onmouseover=openNav2('+i+') ' + ' onmouseout=closeNav2()>' + 
+        document.getElementById("mySidenav").innerHTML +=
+        '<img src=' + files[i][0]+ ' class="tileImage" ' + 'onmouseover=openNav2('+i+') ' + ' onmouseout=closeNav2()>' +
         '<br>' +
         '<br>'
-    }          
+    }
 
     interact('.draggable')
         .draggable({
@@ -34,46 +34,57 @@ $.get("/getImagesJSON", function(data, status) {
         });
 
 	// Write new procedure calls here
-	
-	
+
+
 	//FIRST MODAL FUNCTIONS-CREATE PROJECT
 	// Get the modal
 	var modal = document.getElementById('myModal');
-	
+
 	// Get the button that opens the modal
 	var btn = document.getElementById("myBtn");
-	
+
 	// Get the <span> element that closes the modal
 	var span = document.getElementById("close");
-	
+
 	// When the user clicks the button, open the modal
 	btn.onclick = function() {
-		modal.style.display = "block";
+		  modal.style.display = "block";
 	}
 
 	// When the user clicks on <span> (x), close the modal
 	span.onclick = function() {
-		modal.style.display = "none";
+		  modal.style.display = "none";
 	}
 
 	// When the user clicks anywhere outside of the modal, close it
 	window.onclick = function(event) {
-		if (event.target == modal || event.target == modal2) {
-			modal.style.display = "none";
-			modal2.style.display = "none";
-		}
+  		if (event.target == modal || event.target == modal2) {
+    			modal.style.display = "none";
+    			modal2.style.display = "none";
+  		}
 	}
-	
+
+	document.getElementById("newProjectNameTextField")
+      .addEventListener("keyup", function(event) {
+      //event.preventDefault();
+      if (event.keyCode == 13) {
+          document.getElementById("CreateNewProjectNameBtnID").click();// ();
+      }
+	});
+
+
+
+
 	// SECOND MODAL FUNCTIONS- REMOVE PROJECT WARNING
 	// Get the modal
 	var modal2 = document.getElementById('myModal2');
-	
+
 	// Get the button that opens the modal
 	var btn2 = document.getElementById("myDeleteBtn");
-	
+
 	// Get the <span> element that closes the modal
 	var span2 = document.getElementById("close2");
-	
+
 	// When the user clicks the button, open the modal
 	btn2.onclick = function() {
 		modal2.style.display = "block";
@@ -84,43 +95,48 @@ $.get("/getImagesJSON", function(data, status) {
 		modal2.style.display = "none";
 	}
 
-	
-	
+
+
 }); //End of File Callback
 
 
 // Write new functions here
 
 function onClickDeleteBtn(){
-	select = document.getElementById("mySelect");
-	value = select.selectedIndex;
-	if (value>-1){
-		select.removeChild(select[value]);
-		console.log("index deleted: "+value);	
-		
-		// LOAD 
-	}
-	document.getElementById('myModal2').style.display = "none";
+  	select = document.getElementById("mySelect");
+  	value = select.selectedIndex;
+  	if (value>-1){
+    		select.removeChild(select[value]);
+    		console.log("index deleted: "+value);
+
+    		// LOAD "value"
+  	}
+  	document.getElementById('myModal2').style.display = "none";
 }
 
 function onChangeDropdown(){
-	// Restart the GUI based on the selection.
-	var x = document.getElementById("mySelect").value;
-	console.log(x);
+  	// Restart the GUI based on the selection.
+  	// need to check the selected project, the call might accur on new proj btn.
+  	var x = document.getElementById("mySelect").value;
+  	console.log(x);
+
 }
 
 
 
 function CreateNewProjectNameBtn() {
     var x = document.getElementById("newProjectNameTextField").value;
-	document.getElementById("newProjectNameTextField").value = "";
-	var modal = document.getElementById('myModal');
-	if (x!="")
-		{
-			modal.style.display = "none";
-			document.getElementById("mySelect").innerHTML += '<option value="'+x+'">'+x;
-			console.log("new proj name added:" + x);
-		}
+  	document.getElementById("newProjectNameTextField").value = "";
+  	var modal = document.getElementById('myModal');
+  	if (x!="")
+  	{
+  			modal.style.display = "none";
+  			select = document.getElementById("mySelect");
+  			select.innerHTML += '<option value="'+x+'">'+x;
+  			var l = select.length;
+  			select.selectedIndex = l-1;
+  			console.log("new proj name added:" + x);
+  	}
 }
 
 function playFunc(childButton){
@@ -130,7 +146,6 @@ function playFunc(childButton){
         var speech = new SpeechSynthesisUtterance(text);
         window.speechSynthesis.speak(speech);
     }, 1000)
-
 }
 
 
@@ -139,27 +154,27 @@ function openNav() {
 }
 
 function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";  
+    document.getElementById("mySidenav").style.width = "0";
 
 }
 
 function openNav2(folderNum) {
     document.getElementById("mySidenav2").style.width = "120px";
     document.getElementById("mySidenav2").innerHTML=null;
-    for (var ii = 1; ii< files[folderNum].length; ii++) 
+    for (var ii = 1; ii< files[folderNum].length; ii++)
     {
         var imgSrc = files[folderNum][ii];
-        document.getElementById("mySidenav2").innerHTML += 
-        '<img src="' + imgSrc + '" class="tileImage"  onclick="createTile(\'' + imgSrc + '\')" onmouseover="enlargeIcon(this)" onmouseout="minimizwIcon(this)"> '+
-        '<br>' + 
+        document.getElementById("mySidenav2").innerHTML +=
+        '<img src="' + imgSrc + '" class="tileImage"  onclick="createTile(\'' + imgSrc + '\''+','+'true)" onmouseover="enlargeIcon(this)" onmouseout="minimizwIcon(this)"> '+
+        '<br>' +
         '<br>'
-    }           	 
+    }
 }
 
 function minimizwIcon(a){
     a.style.width="100px";
     a.style.height="100px";
-}	
+}
 
 
 function enlargeIcon(a){
@@ -167,16 +182,15 @@ function enlargeIcon(a){
     a.style.height="105px";
 }
 
-
 function closeNav2() {
-    document.getElementById("mySidenav2").style.width = "0";  
-    document.getElementById("mySidenav").style.width = "0";  
-}    
+    document.getElementById("mySidenav2").style.width = "0";
+    document.getElementById("mySidenav").style.width = "0";
+}
 
 function keepNavOpen(){
     document.getElementById("mySidenav").style.width = "120px";
     document.getElementById("mySidenav2").style.width = "120px";
-}	
+}
 
 
 var lastClosedTile = document.createElement("div");
@@ -189,10 +203,10 @@ function backButton(){
 function closeFunc(childButton){
     var parentDiv = childButton.parentElement;
     var body = parentDiv.parentElement;
-	this.lastClosedTile = parentDiv; 
-    body.removeChild(parentDiv);		
+	this.lastClosedTile = parentDiv;
+    body.removeChild(parentDiv);
 }
-            
+
 function dragMoveListener (event)
 {
     var target = event.target,
@@ -200,7 +214,7 @@ function dragMoveListener (event)
         x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
         y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
     moveTile(target,x,y);
-	
+
 }
 
 function moveTile(target,x,y)
@@ -213,30 +227,32 @@ function moveTile(target,x,y)
 
 window.dragMoveListener = dragMoveListener;
 
-            
-function createTile(imgSrc)
+
+function createTile(imgSrc,newOrOld)
 {
     var tile = document.createElement("div");
     tile.style.width = "200px";
     tile.style.height = "200px";
-    //tile.style.top += Math.floor(((Math.random()*2-1) * 10+ 400))+'px';
-    //tile.style.left += Math.floor(((Math.random()*2-1) * 10 + 400))+'px';
+  	if (newOrOld){
+  	  	tile.style.top += Math.floor(((Math.random()*2-1) * 10+ 400))+'px';
+      	tile.style.left += Math.floor(((Math.random()*2-1) * 10 + 400))+'px';
+  	}
     tile.style.background = "blue";
     tile.className = "draggable";
     console.log('test:',imgSrc.indexOf('arrow'))
     if(imgSrc.indexOf('arrow') == -1)
     {
         tile.innerHTML = '<img src="' + imgSrc + '" class="tileImage">' +
-        '<button type="button" class="playButton" onclick="playFunc(this)">Play</button>' + 
-        '<button type="button" class="closeButton" onclick="closeFunc(this)">X</button>' + 
-        '<input type="text" class="textInput">'
+        '<button type="button" class="playButton" onclick="playFunc(this)">Play</button>' +
+        '<button type="button" class="closeButton" onclick="closeFunc(this)">X</button>' +
+        '<input type="text" class="textInput">' + '<var isArrow = "false" class="arrowFlag"></var>';
     }
     else
     {
         tile.style.width = "auto";
         tile.style.height = "auto";
-        tile.innerHTML = '<button type="button" class="closeButton" onclick="closeFunc(this)">X</button>' + 
-        '<img src="' + imgSrc + '" class="tileImage">';
+        tile.innerHTML = '<button type="button" class="closeButton" onclick="closeFunc(this)">X</button>' +
+        '<img src="' + imgSrc + '" class="tileImage">'+ '<var isArrow = "true" class="arrowFlag"></var>';
 
     }
     document.body.appendChild(tile);
@@ -247,9 +263,11 @@ function createTile(imgSrc)
 
 function loadTile(loadedTile)
 {
-    var tile = createTile(loadedTile.img);
-    if (typeof(loadedTile.text) !== 'undefined')
+    var tile = createTile(loadedTile.img,false);
+    moveTile(tile,loadTile.x,loadedTile.y);
+  	if(!loadedTile.isArrow) {
         tile.getElementsByClassName('textInput')[0].value = loadedTile.text;
+    }
     tile.style.background = loadedTile.color;
     moveTile(tile,loadedTile.x,loadedTile.y)
     return tile;
@@ -259,7 +277,7 @@ function defaultText(textInput) {
     if (textInput.lastIndexOf('/') + 1 >= textInput.length)
         return ""
     var fileNameWithoutExtention = textInput.substring(textInput.lastIndexOf('/') + 1 ,textInput.lastIndexOf('.'));
-    var defaultTxt = 
+    var defaultTxt =
         fileNameWithoutExtention.replaceAll('_','')
     return fileNameWithoutExtention;
 }
@@ -271,17 +289,32 @@ function saveTiles() {
     var tilesToSave = [];
     for (var i = 0; i < tiles.length; i++)
     {
-        var aTile =
+        var aTile;
+    		isArrowFlag = tiles[i].getElementsByClassName('arrowFlag')[0].getAttribute('isArrow')
+    		console.log(isArrowFlag);
+    		if(isArrowFlag){
+      			var aTile =
+      			{
+        				x: tiles[i].getAttribute('data-x'),
+        				y: tiles[i].getAttribute('data-y'),
+        				img: tiles[i].getElementsByClassName('tileImage')[0].getAttribute('src'),
+        				color: tiles[i].style.background,
+        				isArrow: isArrowFlag
+      			}
+    		}
+    		else
         {
-            x: tiles[i].getAttribute('data-x'),
-            y: tiles[i].getAttribute('data-y'),
-            img: tiles[i].getElementsByClassName('tileImage')[0].getAttribute('src'),
-            color: tiles[i].style.background
-        }
-	if (typeof(tiles[i].getElementsByClassName('textInput')[0]) !== 'undefined')
-	{
-	    aTile.text = tiles[i].getElementsByClassName('textInput')[0].value//This last one is a 0
-	}
+      			var aTile =
+      			{
+        				x: tiles[i].getAttribute('data-x'),
+        				y: tiles[i].getAttribute('data-y'),
+        				text: tiles[i].getElementsByClassName('textInput')[0].value,//This last one is a 0
+        				img: tiles[i].getElementsByClassName('tileImage')[0].getAttribute('src'),
+        				color: tiles[i].style.background,
+        				isArrow: isArrowFlag
+      			}
+
+		    }
         tilesToSave.push(aTile);
     }
     console.log(tilesToSave);

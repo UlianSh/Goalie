@@ -246,14 +246,14 @@ function createTile(imgSrc,newOrOld)
         tile.innerHTML = '<img src="' + imgSrc + '" class="tileImage">' +
         '<button type="button" class="playButton" onclick="playFunc(this)">Play</button>' + 
         '<button type="button" class="closeButton" onclick="closeFunc(this)">X</button>' + 
-        '<input type="text" class="textInput">'
+        '<input type="text" class="textInput">' + '<var isArrow = "false" class="arrowFlag"></var>';
     }
     else
     {
         tile.style.width = "auto";
         tile.style.height = "auto";
         tile.innerHTML = '<button type="button" class="closeButton" onclick="closeFunc(this)">X</button>' + 
-        '<img src="' + imgSrc + '" class="tileImage">';
+        '<img src="' + imgSrc + '" class="tileImage">'+ '<var isArrow = "true" class="arrowFlag"></var>';
 
     }
     document.body.appendChild(tile);
@@ -265,8 +265,9 @@ function createTile(imgSrc,newOrOld)
 function loadTile(loadedTile)
 {
     var tile = createTile(loadedTile.img,false);
-    moveTile(tile,loadTile.x,loadedTile.y)
-    tile.getElementsByClassName('textInput')[0].value = loadedTile.text;
+    moveTile(tile,loadTile.x,loadedTile.y);
+	if(loadedTile.isArrow){}
+	else{tile.getElementsByClassName('textInput')[0].value = loadedTile.text;}
     tile.style.background = loadedTile.color;
     moveTile(tile,loadedTile.x,loadedTile.y)
     return tile;
@@ -288,14 +289,30 @@ function saveTiles() {
     var tilesToSave = [];
     for (var i = 0; i < tiles.length; i++)
     {
-        var aTile =
-        {
-            x: tiles[i].getAttribute('data-x'),
-            y: tiles[i].getAttribute('data-y'),
-            text: tiles[i].getElementsByClassName('textInput')[0].value,//This last one is a 0
-            img: tiles[i].getElementsByClassName('tileImage')[0].getAttribute('src'),
-            color: tiles[i].style.background
-        }
+		isArrowFlag = tiles[i].getElementsByClassName('arrowFlag')[0].getAttribute('isArrow')
+		console.log(isArrowFlag);
+		if(isArrowFlag){
+			var aTile =
+			{
+				x: tiles[i].getAttribute('data-x'),
+				y: tiles[i].getAttribute('data-y'),
+				img: tiles[i].getElementsByClassName('tileImage')[0].getAttribute('src'),
+				color: tiles[i].style.background,
+				isArrow: isArrowFlag
+			}
+		}
+		else{
+			var aTile =
+			{
+				x: tiles[i].getAttribute('data-x'),
+				y: tiles[i].getAttribute('data-y'),
+				text: tiles[i].getElementsByClassName('textInput')[0].value,//This last one is a 0
+				img: tiles[i].getElementsByClassName('tileImage')[0].getAttribute('src'),
+				color: tiles[i].style.background,
+				isArrow: isArrowFlag
+			}
+			
+		}
         tilesToSave.push(aTile);
     }
     console.log(tilesToSave);

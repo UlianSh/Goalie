@@ -47,8 +47,13 @@ function getImages()
                 images.push(imagesInDirectory);
         }
     }
-    
+
     return images;
+}
+
+function getUserFolder()
+{
+    return "only"
 }
 
 var onPort = 3000;
@@ -62,12 +67,18 @@ app.post('/', function (req, res) {
 });
 
 app.post('/saveTiles', function (req, res) {
+    var projectName = req.body.project;
+    console.log(projectName);
+    var newFileName = projectName.toString().replace(/[^a-z0-9]/gi,'');
+    var filePath = 'userSaveData/' + getUserFolder() + '/' + newFileName;
+    console.log('Path:' + filePath);
     var dataOut = JSON.stringify(req.body);
-    fs.writeFile('saveData.JSON', dataOut, (err) => {
+    console.log(dataOut)
+    fs.writeFile(filePath, dataOut, (err) => {
         if (err)
         {
             res.send('Error');
-            console.log(err); 
+            console.log(err);
         }
         else
             res.send('Saved!');
@@ -75,12 +86,18 @@ app.post('/saveTiles', function (req, res) {
 });
 
 app.get('/saveTiles', function (req, res) {
+    var projectName = req.query.project;
+    console.log(projectName);
+    var newFileName = projectName.toString().replace(/[^a-z0-9]/gi,'');
+    var filePath = 'userSaveData/' + getUserFolder() + '/' + newFileName;
+
     var dataOut = JSON.stringify(req.body);
-    fs.readFile('saveData.JSON', (err, data) => {
+
+    fs.readFile(filePath, (err, data) => {
         if (err)
         {
             res.send('{"data":"[]"}');
-            console.log(err); 
+            console.log(err);
         }
         else
             res.send(data);

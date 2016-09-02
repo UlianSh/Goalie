@@ -1,8 +1,8 @@
 document.getElementById("saveButton").onclick = function() {
-    saveTiles();
+    saveTiles("Test");
 }
 
-loadTiles();
+loadTiles("Test");
 
 $.get("/getImagesJSON", function(data, status) {
     files = JSON.parse(data);
@@ -203,7 +203,7 @@ function backButton(){
 function closeFunc(childButton){
     var parentDiv = childButton.parentElement;
     var body = parentDiv.parentElement;
-	this.lastClosedTile = parentDiv;
+	  this.lastClosedTile = parentDiv;
     body.removeChild(parentDiv);
 }
 
@@ -282,9 +282,20 @@ function defaultText(textInput) {
     return fileNameWithoutExtention;
 }
 
+function removeAllTiles()
+{
+    var tiles = document.getElementsByClassName("draggable");
+    var tileLength = tiles.length; //We need this as when we delete a tile, it will shorten the length of the array.
+    var i = 0;
+    while(tiles.length > 0)
+    {
+        var body = tiles[0].parentElement;
+        body.removeChild(tiles[0]);
+        i++;
+    }
+}
 
-
-function saveTiles() {
+function saveTiles(projectName) {
     var tiles = document.getElementsByClassName("draggable");
     var tilesToSave = [];
     for (var i = 0; i < tiles.length; i++)
@@ -318,16 +329,18 @@ function saveTiles() {
         tilesToSave.push(aTile);
     }
     console.log(tilesToSave);
-    var outputJSON = {data: JSON.stringify(tilesToSave)};
+    var outputJSON = {data: JSON.stringify(tilesToSave), project: projectName};
     $.post('/saveTiles', outputJSON, function(data) {
         if(data == 'Saved!')
             alert('Saved!')
     });
 }
 
-function loadTiles() {
-    $.get("/saveTiles", function(data, status) {
-        tiles = JSON.parse((JSON.parse(data)).data);
+function loadTiles(projectName) {
+    removeAllTiles();
+    $.get("/saveTiles?" + "project=" + projectName, function(data, status) {
+        var tiles = JSON.parse((JSON.parse(data)).data);
+        var loadedProjectName = JSON.parse(data).project;
         for (var i = 0; i < tiles.length; i++)
         {
             loadTile(tiles[i]);

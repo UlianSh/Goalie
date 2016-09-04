@@ -6,7 +6,7 @@ var fs = require('fs');
 var fileFormats = ['jpg', 'jpeg', 'bmp', 'png', 'gif'];
 
 var directory = 'public/img';
-var directories = fs.readdirSync(directory);
+
 
 
 function containsFileExtention(fileName)
@@ -23,6 +23,7 @@ function containsFileExtention(fileName)
 
 function getImages()
 {
+    var directories = fs.readdirSync(directory);
     var images = [];
 app.get
     for (var i = 0; i < directories.length; i++)

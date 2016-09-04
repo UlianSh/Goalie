@@ -246,7 +246,7 @@ function createTile(imgSrc,newOrOld)
     if(imgSrc.indexOf('arrow') == -1)
     {
         
-        tile.innerHTML = '<img src="' + imgSrc + '" class="tileImage">' +
+        tile.innerHTML = '<img src="' + imgSrc + '" class="tileImage"></img>' +
         '<button type="button" class="playButton" onclick="playFunc(this)">Play</button>' +
         '<button type="button" class="closeButton" onclick="closeFunc(this)">X</button>' +
         '<textarea rows="4" cols="50" class="textInput"></textarea>' + '<var isArrow = "false" class="arrowFlag"></var>';
@@ -269,7 +269,7 @@ function loadTile(loadedTile)
 {
     var tile = createTile(loadedTile.img,false);
     moveTile(tile,loadTile.x,loadedTile.y);
-  	if(!loadedTile.isArrow) {
+  	if(loadedTile.isArrow == 'false') {
         tile.getElementsByClassName('textInput')[0].value = loadedTile.text;
     }
     tile.style.background = loadedTile.color;
@@ -317,18 +317,19 @@ function saveTiles(projectName) {
         var aTile;
     		isArrowFlag = tiles[i].getElementsByClassName('arrowFlag')[0].getAttribute('isArrow')
     		console.log(isArrowFlag);
-    		if(isArrowFlag){
+    		if(isArrowFlag == 'true'){
       			var aTile =
       			{
         				x: tiles[i].getAttribute('data-x'),
         				y: tiles[i].getAttribute('data-y'),
+						text:"",
         				img: tiles[i].getElementsByClassName('tileImage')[0].getAttribute('src'),
         				color: tiles[i].style.background,
         				isArrow: isArrowFlag
       			}
     		}
     		else
-        {
+        	{
       			var aTile =
       			{
         				x: tiles[i].getAttribute('data-x'),
@@ -341,7 +342,9 @@ function saveTiles(projectName) {
 
 		    }
         tilesToSave.push(aTile);
+		console.log(tiles[i].getElementsByClassName('textInput')[0].value);
     }
+	
     console.log(tilesToSave);
     var outputJSON = {data: JSON.stringify(tilesToSave), project: projectName};
     $.post('/saveTiles', outputJSON, function(data) {

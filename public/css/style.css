@@ -6,6 +6,7 @@ html, body {
 
 
 .draggable {
+
     position: relative
     color: #FF0000;
     background-color: #FF0000;
@@ -21,6 +22,7 @@ html, body {
     width: 100px;
     height: 100px;
 	
+<<<<<<< HEAD
 }
 .createdTileImage
 {
@@ -48,6 +50,7 @@ html, body {
     width: 100%;
     background-color: transparent;
 }
+
 
 /* ulian add*/
 
@@ -221,6 +224,7 @@ html, body {
 .dropdown-content a:hover {background-color: #f1f1f1}
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+<<<<<<< HEAD
 .show {display:block;}
 
 

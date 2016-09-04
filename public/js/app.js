@@ -240,7 +240,7 @@ function createTile(imgSrc,newOrOld)
   	  	tile.style.top += Math.floor(((Math.random()*2-1) * 10+ 400))+'px';
       	tile.style.left += Math.floor(((Math.random()*2-1) * 10 + 400))+'px';
   	}
-    tile.style.background = "white";
+    tile.style.background = "powderblue";
     tile.className = "draggable";
     console.log('test:',imgSrc.indexOf('arrow'))
     if(imgSrc.indexOf('arrow') == -1)
@@ -249,12 +249,12 @@ function createTile(imgSrc,newOrOld)
         tile.innerHTML = '<img src="' + imgSrc + '" class="tileImage">' +
         '<button type="button" class="playButton" onclick="playFunc(this)">Play</button>' +
         '<button type="button" class="closeButton" onclick="closeFunc(this)">X</button>' +
-        '<textarea rows="4" cols="50" class="textInput">' + '<var isArrow = "false" class="arrowFlag"></var>';
+        '<textarea rows="4" cols="50" class="textInput"></textarea>' + '<var isArrow = "false" class="arrowFlag"></var>';
     }
     else
     {
-        tile.style.width = "auto";
-        tile.style.height = "auto";
+        tile.style.width = "200px";
+        tile.style.height = "200px";
         tile.innerHTML = '<button type="button" class="closeButton" onclick="closeFunc(this)">X</button>' +
         '<img src="' + imgSrc + '" class="tileImage">'+ '<var isArrow = "true" class="arrowFlag"></var>';
 

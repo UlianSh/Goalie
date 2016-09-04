@@ -6,6 +6,7 @@ html, body {
 
 
 .draggable {
+    position: relative;
     color: #FF0000;
     background-color: #FF0000;
     height: 400px;
@@ -17,13 +18,31 @@ html, body {
 }
 
 .tileImage {
-    width: 100px;
-    height: 100px;
-	
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    opacity: 0.5;
+}
+
+.closeButton
+{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.playButton
+{
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 .textInput {
-    width: 100%;
+    position: absolute;
+    width: 90%;
+    background-color: transparent;
+    top: 20%;
 }
 
 /* ulian add*/

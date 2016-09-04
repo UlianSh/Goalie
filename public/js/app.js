@@ -240,15 +240,16 @@ function createTile(imgSrc,newOrOld)
   	  	tile.style.top += Math.floor(((Math.random()*2-1) * 10+ 400))+'px';
       	tile.style.left += Math.floor(((Math.random()*2-1) * 10 + 400))+'px';
   	}
-    tile.style.background = "blue";
+    tile.style.background = "white";
     tile.className = "draggable";
     console.log('test:',imgSrc.indexOf('arrow'))
     if(imgSrc.indexOf('arrow') == -1)
     {
+        
         tile.innerHTML = '<img src="' + imgSrc + '" class="tileImage">' +
         '<button type="button" class="playButton" onclick="playFunc(this)">Play</button>' +
         '<button type="button" class="closeButton" onclick="closeFunc(this)">X</button>' +
-        '<input type="text" class="textInput">' + '<var isArrow = "false" class="arrowFlag"></var>';
+        '<textarea rows="4" cols="50" class="textInput">' + '<var isArrow = "false" class="arrowFlag"></var>';
     }
     else
     {

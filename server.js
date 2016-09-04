@@ -24,7 +24,7 @@ function containsFileExtention(fileName)
 function getImages()
 {
     var images = [];
-
+app.get
     for (var i = 0; i < directories.length; i++)
     {
         var possibleDirectoryPath = directory + '/' + directories[i];
@@ -88,7 +88,7 @@ app.post('/saveTiles', function (req, res) {
     fs.writeFile(filePath, dataOut, (err) => {
         if (err)
         {
-            res.send('Error');
+            res.send('Error!');
             console.log(err);
         }
         else
@@ -106,6 +106,44 @@ app.get('/projects', function (req, res) {
 })
 
 app.get('/saveTiles', function (req, res) {
+     var projectName = req.query.project;
+     console.log(projectName);
+    var newFileName = projectName.toString().replace(/[^a-z0-9]/gi,'');
+    var filePath = 'userSaveData/' + getUserFolder() + '/' + newFileName;
+
+    var dataOut = JSON.stringify(req.body);
+
+    fs.readFile(filePath, (err, data) => {
+        if (err)
+        {
+            res.send('{"data":"[]"}');
+            console.log(err);
+        }
+        else
+            res.send(data);
+    });
+});
+
+app.post('/deleteTiles', function (req, res) {
+    var projectName = req.body.project;
+    console.log(projectName);
+    var newFileName = projectName.toString().replace(/[^a-z0-9]/gi,'');
+    var filePath = 'userSaveData/' + getUserFolder() + '/' + newFileName;
+    console.log('Path:' + filePath);
+    var dataOut = JSON.stringify(req.body);
+    console.log(dataOut)
+    fs.unlink(filePath, (err) => {
+        if (err)
+        {
+            res.send('Error!');
+            console.log(err);
+        }
+        else
+            res.send('Deleted!');
+    });
+});
+
+app.post('/deleteTiles', function (req, res) {
     var projectName = req.query.project;
     console.log(projectName);
     var newFileName = projectName.toString().replace(/[^a-z0-9]/gi,'');

@@ -298,6 +298,16 @@ function removeAllTiles()
     }
 }
 
+function deleteTiles(projectName) {
+    var objectOut = {project: projectName}
+    $.post('/deleteTiles', objectOut, function(data) {
+        if(data == 'Deleted!')
+            alert('Deleted!')
+        else
+            alert('Sorry, there was an error. This project could not be deleted.')
+    });
+}
+
 function saveTiles(projectName) {
     var tiles = document.getElementsByClassName("draggable");
     var tilesToSave = [];
@@ -336,6 +346,8 @@ function saveTiles(projectName) {
     $.post('/saveTiles', outputJSON, function(data) {
         if(data == 'Saved!')
             alert('Saved!')
+        else
+            alert('Sorry, there was an error. This project could not be saved.')
     });
 }
 

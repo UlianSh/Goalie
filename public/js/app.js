@@ -246,10 +246,10 @@ function createTile(imgSrc,newOrOld)
     if(imgSrc.indexOf('arrow') == -1)
     {
         
-        tile.innerHTML = '<img src="' + imgSrc + '" class="tileImage">' +
+        tile.innerHTML = '<img src="' + imgSrc + '" class="tileImage"></img>' +
         '<button type="button" class="playButton" onclick="playFunc(this)">Play</button>' +
         '<button type="button" class="closeButton" onclick="closeFunc(this)">X</button>' +
-        '<textarea rows="4" cols="50" class="textInput">' + '<var isArrow = "false" class="arrowFlag"></var>';
+        '<textarea rows="4" cols="50" class="textInput"></textarea>' + '<var isArrow = "false" class="arrowFlag"></var>';
     }
     else
     {

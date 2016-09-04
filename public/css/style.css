@@ -9,13 +9,11 @@ html, body {
     position: relative
     color: #FF0000;
     background-color: #FF0000;
-    height: 400px;
-    width: 300px;
 	padding: 8px;
 	position:absolute;
 	top: 400px;
     left: 400px;
-    border: 1px solid blue;
+/*    border: 1px solid blue;*/
 }
 
 .tileImage {
@@ -32,16 +30,17 @@ html, body {
     opacity: 0.5;
     margin-top: 2%;
     left: 0;
+/*	border: 1px solid black;*/
 }
 
 .arrowTileImage
 {
     position: absolute;
     width: 100%;
-    height: 87%;
+    height: 100%;
     top: 0;
     left: 0;
-    border: 1px solid black;
+/*    border: 1px solid black;*/
 }
 .playButton
 {
@@ -60,13 +59,14 @@ html, body {
     width: 100%;
     height: 76%;
     background-color: transparent;
+	font-weight: bold; 
     padding-top: 5%;
     padding-left: 5%;
     padding-right: 4%;
     padding-bottom: 3%;
     margin-top: 8%;
     left: 0;
-    border: 1px solid black;
+    border: 0px solid black;
 }
 
 

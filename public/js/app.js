@@ -1,8 +1,9 @@
-document.getElementById("saveButton").onclick = function() {
-    saveTiles("Test");
+/*document.getElementById("saveButton").onclick = function() {
+    saveTiles(projName);
 }
 
 loadTiles("Test");
+*/
 $.get("/projects", function(data, status) {
 
 });
@@ -101,8 +102,12 @@ $.get("/getImagesJSON", function(data, status) {
 
 }); //End of File Callback
 
-
 // Write new functions here
+
+function onClickSaveBtn(projName){
+	
+	saveTiles("test");	
+}
 
 function onClickDeleteBtn(){
   	select = document.getElementById("mySelect");
@@ -124,8 +129,6 @@ function onChangeDropdown(){
     loadTiles(x); //This should load in that project.
 }
 
-
-
 function CreateNewProjectNameBtn() {
     var x = document.getElementById("newProjectNameTextField").value;
   	document.getElementById("newProjectNameTextField").value = "";
@@ -137,9 +140,11 @@ function CreateNewProjectNameBtn() {
   			select.innerHTML += '<option value="'+x+'">'+x;
   			var l = select.length;
   			select.selectedIndex = l-1;
-  			console.log("new proj name added:" + x);
+			saveTiles(x);
+  			//console.log("new proj name added:" + x);
   	}
-    saveTiles(x);
+	alert('The Project was not saved!, create project first');
+    
 }
 
 function playFunc(childButton){
@@ -150,7 +155,6 @@ function playFunc(childButton){
         window.speechSynthesis.speak(speech);
     }, 1000)
 }
-
 
 function openNav() {
     document.getElementById("mySidenav").style.width = "120px";
@@ -179,7 +183,6 @@ function minimizeIcon(a){
     a.style.height="100px";
 }
 
-
 function enlargeIcon(a){
     a.style.width="105px";
     a.style.height="105px";
@@ -195,9 +198,8 @@ function keepNavOpen(){
     document.getElementById("mySidenav2").style.width = "120px";
 }
 
-
 var lastClosedTile = document.createElement("div");
-//tile.style.width = "200px";
+
 function backButton(){
 	if(lastClosedTile.style.width>1);
     	document.body.appendChild(this.lastClosedTile);
@@ -206,12 +208,11 @@ function backButton(){
 function closeFunc(childButton){
     var parentDiv = childButton.parentElement;
     var body = parentDiv.parentElement;
-	  this.lastClosedTile = parentDiv;
+	this.lastClosedTile = parentDiv;
     body.removeChild(parentDiv);
 }
 
-function dragMoveListener (event)
-{
+function dragMoveListener(event){
     var target = event.target,
     // keep the dragged position in the data-x/data-y attributes
         x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
@@ -220,8 +221,7 @@ function dragMoveListener (event)
 
 }
 
-function moveTile(target,x,y)
-{
+function moveTile(target,x,y){
     target.style.webkitTransform = target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
     target.setAttribute('data-x', x);
     target.setAttribute('data-y', y);
@@ -230,12 +230,10 @@ function moveTile(target,x,y)
 
 window.dragMoveListener = dragMoveListener;
 
+function createTile(imgSrc,newOrOld){
+/* inputs: image url, bool new or loaded element*/
 
-function createTile(imgSrc,newOrOld)
-{
     var tile = document.createElement("div");
-    tile.style.width = "200px";
-    tile.style.height = "200px";
   	if (newOrOld){
   	  	tile.style.top += Math.floor(((Math.random()*2-1) * 10+ 400))+'px';
       	tile.style.left += Math.floor(((Math.random()*2-1) * 10 + 400))+'px';
@@ -243,30 +241,30 @@ function createTile(imgSrc,newOrOld)
     tile.style.background = "white";
     tile.className = "draggable";
     console.log('test:',imgSrc.indexOf('arrow'))
-    if(imgSrc.indexOf('arrow') == -1)
+    if(imgSrc.indexOf('arrow') == -1) // Not arrow
     {
-        
+		tile.style.width = "170px";
+    	tile.style.height = "200px";
         tile.innerHTML = '<img src="' + imgSrc + '" class="generalTileImage"></img>' +
         '<button type="button" class="playButton" onclick="playFunc(this)">Play</button>' +
         '<button type="button" class="closeButton" onclick="closeFunc(this)">X</button>' +
-        '<textarea rows="4" cols="50" class="textInput"></textarea>' + '<var isArrow = "false" class="arrowFlag"></var>';
+        '<textarea rows="4" cols="50" class="textInput"></textarea>' + 
+		'<var isArrow = "false" class="arrowFlag"></var>';
     }
-    else
+    else	//	Arrow 
     {
-        tile.style.width = "200px";
-        tile.style.height = "200px";
-        tile.innerHTML = '<button type="button" class="closeButton" onclick="closeFunc(this)">X</button>' +
-        '<img src="' + imgSrc + '" class="arrowTileImage">'+ '<var isArrow = "true" class="arrowFlag"></var>';
-
+        tile.style.width = "150px";
+        tile.style.height = "120px";
+        tile.innerHTML = '<img src="' + imgSrc + '" class="arrowTileImage">'+ 
+		'<button type="button" class="closeButton" onclick="closeFunc(this)">X</button>' +
+		'<var isArrow = "true" class="arrowFlag"></var>';
     }
     document.body.appendChild(tile);
-    //randomlyPlace(tile);
     console.log(imgSrc);
     return tile;
 }
 
-function loadTile(loadedTile)
-{
+function loadTile(loadedTile){
     var tile = createTile(loadedTile.img,false);
     moveTile(tile,loadTile.x,loadedTile.y);
   	if(loadedTile.isArrow == 'false') {
@@ -286,8 +284,7 @@ function defaultText(textInput) {
     return fileNameWithoutExtention;
 }
 
-function removeAllTiles()
-{
+function removeAllTiles(){
     var tiles = document.getElementsByClassName("draggable");
     var tileLength = tiles.length; //We need this as when we delete a tile, it will shorten the length of the array.
     var i = 0;
@@ -315,27 +312,27 @@ function saveTiles(projectName) {
     for (var i = 0; i < tiles.length; i++)
     {
         var aTile;
-    		isArrowFlag = tiles[i].getElementsByClassName('arrowFlag')[0].getAttribute('isArrow')
-    		console.log(isArrowFlag);
+    		isArrowFlag = tiles[i].getElementsByClassName('arrowFlag')[0].getAttribute('isArrow');
     		if(isArrowFlag == 'true'){
       			var aTile =
       			{
         				x: tiles[i].getAttribute('data-x'),
         				y: tiles[i].getAttribute('data-y'),
 						text:"",
-        				img: tiles[i].getElementsByClassName('tileImage')[0].getAttribute('src'),
+        				img: tiles[i].getElementsByClassName('arrowTileImage')[0].getAttribute('src'),
         				color: tiles[i].style.background,
         				isArrow: isArrowFlag
       			}
     		}
     		else
         	{
+				
       			var aTile =
       			{
         				x: tiles[i].getAttribute('data-x'),
         				y: tiles[i].getAttribute('data-y'),
         				text: tiles[i].getElementsByClassName('textInput')[0].value,//This last one is a 0
-        				img: tiles[i].getElementsByClassName('tileImage')[0].getAttribute('src'),
+        				img: tiles[i].getElementsByClassName('generalTileImage')[0].getAttribute('src'),
         				color: tiles[i].style.background,
         				isArrow: isArrowFlag
       			}
@@ -367,14 +364,4 @@ function loadTiles(projectName) {
         }
         console.log(tiles);
     });
-}
-
-function removeTile()
-{
-    document.removeChild()
-}
-
-function randomlyPlace(target)
-{
-    moveTile(target, Math.floor(Math.random()*document.body.clientHeight), Math.floor(Math.random()*document.body.clientWidth))
 }

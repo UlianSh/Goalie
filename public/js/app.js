@@ -268,7 +268,7 @@ function loadTile(loadedTile)
 {
     var tile = createTile(loadedTile.img,false);
     moveTile(tile,loadTile.x,loadedTile.y);
-  	if(!loadedTile.isArrow) {
+  	if(loadedTile.isArrow == 'false') {
         tile.getElementsByClassName('textInput')[0].value = loadedTile.text;
     }
     tile.style.background = loadedTile.color;
@@ -316,18 +316,19 @@ function saveTiles(projectName) {
         var aTile;
     		isArrowFlag = tiles[i].getElementsByClassName('arrowFlag')[0].getAttribute('isArrow')
     		console.log(isArrowFlag);
-    		if(isArrowFlag){
+    		if(isArrowFlag == 'true'){
       			var aTile =
       			{
         				x: tiles[i].getAttribute('data-x'),
         				y: tiles[i].getAttribute('data-y'),
+						text:"",
         				img: tiles[i].getElementsByClassName('tileImage')[0].getAttribute('src'),
         				color: tiles[i].style.background,
         				isArrow: isArrowFlag
       			}
     		}
     		else
-        {
+        	{
       			var aTile =
       			{
         				x: tiles[i].getAttribute('data-x'),
@@ -340,7 +341,9 @@ function saveTiles(projectName) {
 
 		    }
         tilesToSave.push(aTile);
+		console.log(tiles[i].getElementsByClassName('textInput')[0].value);
     }
+	
     console.log(tilesToSave);
     var outputJSON = {data: JSON.stringify(tilesToSave), project: projectName};
     $.post('/saveTiles', outputJSON, function(data) {

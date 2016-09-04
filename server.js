@@ -56,6 +56,17 @@ function getUserFolder()
     return "only"
 }
 
+function getUserProjects()
+{
+    fs.readdirSync('userSaveData/' + getUserFolder(), (err, data) => {
+        console.log(err);
+        if (!err)
+        {
+            console.log(data);
+        }
+    })
+}
+
 var onPort = 3000;
 app.use(express.static('public'));
 
@@ -84,6 +95,15 @@ app.post('/saveTiles', function (req, res) {
             res.send('Saved!');
     });
 });
+
+app.get('/projects', function (req, res) {
+    var userDirectory = 'userSaveData/' + getUserFolder();
+    var userProjects = [];
+    if (fs.lstatSync(userDirectory).isDirectory())
+        userProjects = fs.readdirSync(userDirectory);
+    var sendData = JSON.stringify(userProjects);
+    res.send(sendData);
+})
 
 app.get('/saveTiles', function (req, res) {
     var projectName = req.query.project;

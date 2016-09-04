@@ -3,7 +3,9 @@ document.getElementById("saveButton").onclick = function() {
 }
 
 loadTiles("Test");
+$.get("/projects", function(data, status) {
 
+});
 $.get("/getImagesJSON", function(data, status) {
     files = JSON.parse(data);
     console.log(files);
@@ -119,7 +121,7 @@ function onChangeDropdown(){
   	// need to check the selected project, the call might accur on new proj btn.
   	var x = document.getElementById("mySelect").value;
   	console.log(x);
-
+    loadTiles(x); //This should load in that project.
 }
 
 
@@ -137,6 +139,7 @@ function CreateNewProjectNameBtn() {
   			select.selectedIndex = l-1;
   			console.log("new proj name added:" + x);
   	}
+    saveTiles(x);
 }
 
 function playFunc(childButton){
@@ -165,13 +168,13 @@ function openNav2(folderNum) {
     {
         var imgSrc = files[folderNum][ii];
         document.getElementById("mySidenav2").innerHTML +=
-        '<img src="' + imgSrc + '" class="tileImage"  onclick="createTile(\'' + imgSrc + '\''+','+'true)" onmouseover="enlargeIcon(this)" onmouseout="minimizwIcon(this)"> '+
+        '<img src="' + imgSrc + '" class="tileImage"  onclick="createTile(\'' + imgSrc + '\''+','+'true)" onmouseover="enlargeIcon(this)" onmouseout="minimizeIcon(this)"> '+
         '<br>' +
         '<br>'
     }
 }
 
-function minimizwIcon(a){
+function minimizeIcon(a){
     a.style.width="100px";
     a.style.height="100px";
 }

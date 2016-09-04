@@ -6,7 +6,6 @@ html, body {
 
 
 .draggable {
-
     position: relative
     color: #FF0000;
     background-color: #FF0000;
@@ -16,24 +15,34 @@ html, body {
 	position:absolute;
 	top: 400px;
     left: 400px;
+    border: 1px solid blue;
 }
 
 .tileImage {
     width: 100px;
     height: 100px;
 	
-<<<<<<< HEAD
 }
-.createdTileImage
+.generalTileImage
 {
     position: absolute;
     top: 10%;
     width: 100%;
-    height: 80%;
+    height: 76%;
     opacity: 0.5;
-    
+    margin-top: 2%;
+    left: 0;
 }
 
+.arrowTileImage
+{
+    position: absolute;
+    width: 100%;
+    height: 87%;
+    top: 0;
+    left: 0;
+    border: 1px solid black;
+}
 .playButton
 {
     position: absolute;
@@ -47,8 +56,17 @@ html, body {
     bottom: 0;
 }
 .textInput {
+    position: absolute;
     width: 100%;
+    height: 76%;
     background-color: transparent;
+    padding-top: 5%;
+    padding-left: 5%;
+    padding-right: 4%;
+    padding-bottom: 3%;
+    margin-top: 8%;
+    left: 0;
+    border: 1px solid black;
 }
 
 

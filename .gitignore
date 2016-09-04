@@ -1,3 +1,4 @@
 node_modules
 public/img/*
 saveData.JSON
+userSaveData/only/*

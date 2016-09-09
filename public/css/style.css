@@ -54,6 +54,21 @@ html, body {
     left: 0;
     bottom: 0;
 }
+
+.flagButton{
+	position: absolute;
+	right:0;
+	bottom:0;
+}
+
+.flagImage{
+	visibility: hidden;
+	position: absolute;
+	right:15px;
+	bottom:15%;
+}
+
+
 .textInput {
     position: absolute;
     width: 100%;

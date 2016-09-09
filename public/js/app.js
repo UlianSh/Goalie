@@ -254,6 +254,17 @@ function closeFunc(childButton){
     body.removeChild(parentDiv);
 }
 
+function onClickFlagBtn(childButton){
+	if(childButton.parentElement.getElementsByClassName("doneFlag")[0].getAttribute('isDone')=='visible'){
+		childButton.parentElement.getElementsByClassName("flagImage")[0].style.visibility = 'hidden';
+		childButton.parentElement.getElementsByClassName("doneFlag")[0].setAttribute("isDone","hidden");
+	}
+	else{
+		childButton.parentElement.getElementsByClassName("flagImage")[0].style.visibility = 'visible';
+		childButton.parentElement.getElementsByClassName("doneFlag")[0].setAttribute('isDone','visible');
+	}
+}
+
 function dragMoveListener(event){
     var target = event.target,
     // keep the dragged position in the data-x/data-y attributes
@@ -283,17 +294,21 @@ function createTile(imgSrc,newOrOld){
     tile.style.background = "white";
     tile.className = "draggable";
     console.log('test:',imgSrc.indexOf('arrow'))
-    if(imgSrc.indexOf('arrow') == -1) // Not arrow
-    {
+    if(imgSrc.indexOf('arrow') == -1) 
+    {	// Not arrow
 		tile.style.width = "170px";
     	tile.style.height = "200px";
         tile.innerHTML = '<img src="' + imgSrc + '" class="generalTileImage"></img>' +
         '<button type="button" class="playButton" onclick="playFunc(this)">Play</button>' +
         '<button type="button" class="closeButton" onclick="closeFunc(this)">X</button>' +
         '<textarea rows="4" cols="50" class="textInput"></textarea>' + 
-		'<var isArrow = "false" class="arrowFlag"></var>';
+		'<var isArrow = "false" class="arrowFlag"></var>' + 
+		'<button type="button" class="flagButton" onclick="onClickFlagBtn(this)">OK</button>' +
+		'<img src="img/green_arrow_outline.png" class="flagImage"></img>' +
+		'<var isDone = "hidden" class="doneFlag"></var>'	
+			;
     }
-    else	//	Arrow 
+    else	//	Arrow
     {
         tile.style.width = "150px";
         tile.style.height = "120px";
@@ -311,6 +326,7 @@ function loadTile(loadedTile){
     moveTile(tile,loadTile.x,loadedTile.y);
   	if(loadedTile.isArrow == 'false') {
         tile.getElementsByClassName('textInput')[0].value = loadedTile.text;
+		tile.getElementsByClassName('flagImage')[0].style.visibility = loadedTile.isDone;
     }
     tile.style.background = loadedTile.color;
     moveTile(tile,loadedTile.x,loadedTile.y)
@@ -368,7 +384,6 @@ function saveTiles(projectName) {
     		}
     		else // not arrow
         	{
-				
       			var aTile =
       			{
         				x: tiles[i].getAttribute('data-x'),
@@ -376,7 +391,8 @@ function saveTiles(projectName) {
         				text: tiles[i].getElementsByClassName('textInput')[0].value,//This last one is a 0
         				img: tiles[i].getElementsByClassName('generalTileImage')[0].getAttribute('src'),
         				color: tiles[i].style.background,
-        				isArrow: isArrowFlag
+        				isArrow: isArrowFlag,
+						isDone: tiles[i].getElementsByClassName('doneFlag')[0].getAttribute('isDone')
       			}
 				console.log(tiles[i].getElementsByClassName('textInput')[0].value);
 		    }
@@ -387,10 +403,11 @@ function saveTiles(projectName) {
     console.log(tilesToSave);
     var outputJSON = {data: JSON.stringify(tilesToSave), project: projectName};
     $.post('/saveTiles', outputJSON, function(data) {
-        if(data == 'Saved!')
+        /*if(data == 'Saved!')
             alert('Saved!')
         else
             alert('Sorry, there was an error. This project could not be saved.')
+			*/
     });
 }
 

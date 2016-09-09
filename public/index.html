@@ -19,7 +19,7 @@
         
         <div id="selectorBar">
             <button id="myBtn" class = "glyphicon glyphicon-certificate"></button>
-            <select id="mySelect" onchange="onChangeDropdown()">
+            <select id="mySelect" onmousedown="onMouseDownDropdown()" onchange="onChangeDropdown()">
             </select>
 			<button id="myDeleteBtn" class="glyphicon glyphicon-remove"></button>
             <button type="button" id="saveButton" onclick="onClickSaveBtn()"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
@@ -48,7 +48,7 @@
 		  </div>
 		</div>
 
-		<!-- The Modal create project -->
+		<!-- The Modal delete project -->
 		<div id="myModal2" class="modal">
 
 		  <!-- Modal content -->

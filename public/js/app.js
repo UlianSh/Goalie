@@ -1,17 +1,28 @@
-/*document.getElementById("saveButton").onclick = function() {
-    saveTiles(projName);
-}
+initModals();
 
-loadTiles("Test");
-*/
 $.get("/projects", function(data, status) {
-
+	projects = JSON.parse(data);
+	var numOfProjects = projects.length;
+	console.log("projects loaded:" + projects);
+	console.log("total number of user projects is:" + numOfProjects);
+	
+	if (numOfProjects == 0){
+		//first app run, no projects
+		document.getElementById('myModal').style.display="block";
+		CreateNewProjectNameBtn();
+	}
+	else{
+		select = document.getElementById("mySelect");
+		for (var i = 0; i < numOfProjects; i++){
+  			select.innerHTML += '<option value="'+projects[i]+'">'+projects[i];
+		}
+		loadTiles(projects[0]);
+	}		
 });
+
 $.get("/getImagesJSON", function(data, status) {
     files = JSON.parse(data);
     console.log(files);
-
-
     for (var i = 0; i < files.length; i++)
     {
         document.getElementById("mySidenav").innerHTML +=
@@ -36,10 +47,15 @@ $.get("/getImagesJSON", function(data, status) {
             }
         });
 
-	// Write new procedure calls here
+});
 
 
-	//FIRST MODAL FUNCTIONS-CREATE PROJECT
+//End of Callback
+
+// Write new functions,procedures here!
+
+function initModals(){
+//FIRST MODAL FUNCTIONS-CREATE PROJECT
 	// Get the modal
 	var modal = document.getElementById('myModal');
 
@@ -61,10 +77,14 @@ $.get("/getImagesJSON", function(data, status) {
 
 	// When the user clicks anywhere outside of the modal, close it
 	window.onclick = function(event) {
-  		if (event.target == modal || event.target == modal2) {
+  		if (event.target == modal)  {
     			modal.style.display = "none";
-    			modal2.style.display = "none";
+				alert('The Project was not created!, type any project name and click enter button');
   		}
+		
+		 if(event.target == modal2){
+			 modal2.style.display = "none";
+		 }
 	}
 
 	document.getElementById("newProjectNameTextField")
@@ -97,36 +117,50 @@ $.get("/getImagesJSON", function(data, status) {
 	span2.onclick = function() {
 		modal2.style.display = "none";
 	}
-
-
-
-}); //End of File Callback
-
-// Write new functions here
+}
 
 function onClickSaveBtn(projName){
-	
-	saveTiles("test");	
+	select = document.getElementById("mySelect");
+	saveTiles(select.value);	
 }
 
 function onClickDeleteBtn(){
   	select = document.getElementById("mySelect");
   	value = select.selectedIndex;
   	if (value>-1){
+			deleteTiles(select.value);
     		select.removeChild(select[value]);
-    		console.log("index deleted: "+value);
-
-    		// LOAD "value"
+    		console.log("index deleted: "+value);		
   	}
+	else{}
+	value = select.selectedIndex;
+	if (value>-1){
+			// LOAD other projec if exist by "value"
+			loadTiles(select.value);	
+  	}
+	else{removeAllTiles();
+	}
+	
   	document.getElementById('myModal2').style.display = "none";
 }
 
+var lastSelectedValueOnDropDwnMenu = "";
+function onMouseDownDropdown(){
+	var selected =  document.getElementById("mySelect").value;
+	
+	if (selected !=""){
+		this.lastSelectedValueOnDropDwnMenu =selected;
+		console.log(this.lastSelectedValueOnDropDwnMenu);
+	}
+}
+
 function onChangeDropdown(){
-  	// Restart the GUI based on the selection.
-  	// need to check the selected project, the call might accur on new proj btn.
+	
   	var x = document.getElementById("mySelect").value;
-  	console.log(x);
+  	//console.log(x);
+	saveTiles(this.lastSelectedValueOnDropDwnMenu);
     loadTiles(x); //This should load in that project.
+	
 }
 
 function CreateNewProjectNameBtn() {
@@ -135,15 +169,22 @@ function CreateNewProjectNameBtn() {
   	var modal = document.getElementById('myModal');
   	if (x!="")
   	{
-  			modal.style.display = "none";
-  			select = document.getElementById("mySelect");
+			select = document.getElementById("mySelect");
+			if(select.length==0){
+				// no projects
+			}
+			else{
+				// atleast one project already exist so saving the prevoius open
+				saveTiles(select.value);
+				removeAllTiles();
+			}
+				
   			select.innerHTML += '<option value="'+x+'">'+x;
   			var l = select.length;
   			select.selectedIndex = l-1;
-			saveTiles(x);
-  			//console.log("new proj name added:" + x);
+			modal.style.display = "none";
   	}
-	alert('The Project was not saved!, create project first');
+	
     
 }
 
@@ -198,17 +239,18 @@ function keepNavOpen(){
     document.getElementById("mySidenav2").style.width = "120px";
 }
 
-var lastClosedTile = document.createElement("div");
-
+var lastClosedTile = [];
 function backButton(){
-	if(lastClosedTile.style.width>1);
-    	document.body.appendChild(this.lastClosedTile);
+	if(lastClosedTile.length>0)
+		document.body.appendChild(this.lastClosedTile.pop());
+	
+	
 }
 
 function closeFunc(childButton){
     var parentDiv = childButton.parentElement;
     var body = parentDiv.parentElement;
-	this.lastClosedTile = parentDiv;
+	lastClosedTile.push(parentDiv);
     body.removeChild(parentDiv);
 }
 
@@ -324,7 +366,7 @@ function saveTiles(projectName) {
         				isArrow: isArrowFlag
       			}
     		}
-    		else
+    		else // not arrow
         	{
 				
       			var aTile =
@@ -336,10 +378,10 @@ function saveTiles(projectName) {
         				color: tiles[i].style.background,
         				isArrow: isArrowFlag
       			}
-
+				console.log(tiles[i].getElementsByClassName('textInput')[0].value);
 		    }
         tilesToSave.push(aTile);
-		console.log(tiles[i].getElementsByClassName('textInput')[0].value);
+		//
     }
 	
     console.log(tilesToSave);

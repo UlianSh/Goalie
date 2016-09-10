@@ -22,7 +22,8 @@ $.get("/projects", function(data, status) {
 
 $.get("/getImagesJSON", function(data, status) {
     files = JSON.parse(data);
-    console.log(files);
+    console.log("the following images loaded:");
+	console.log(files);
     for (var i = 0; i < files.length; i++)
     {
         document.getElementById("mySidenav").innerHTML +=
@@ -150,7 +151,7 @@ function onMouseDownDropdown(){
 	
 	if (selected !=""){
 		this.lastSelectedValueOnDropDwnMenu =selected;
-		console.log(this.lastSelectedValueOnDropDwnMenu);
+		//console.log(this.lastSelectedValueOnDropDwnMenu);
 	}
 }
 
@@ -293,7 +294,7 @@ function createTile(imgSrc,newOrOld){
   	}
     tile.style.background = "white";
     tile.className = "draggable";
-    console.log('test:',imgSrc.indexOf('arrow'))
+    //console.log('test:',imgSrc.indexOf('arrow'))
     if(imgSrc.indexOf('arrow') == -1) 
     {	// Not arrow
 		tile.style.width = "170px";
@@ -317,7 +318,7 @@ function createTile(imgSrc,newOrOld){
 		'<var isArrow = "true" class="arrowFlag"></var>';
     }
     document.body.appendChild(tile);
-    console.log(imgSrc);
+    //console.log(imgSrc);
     return tile;
 }
 
@@ -326,7 +327,8 @@ function loadTile(loadedTile){
     moveTile(tile,loadTile.x,loadedTile.y);
   	if(loadedTile.isArrow == 'false') {
         tile.getElementsByClassName('textInput')[0].value = loadedTile.text;
-		tile.getElementsByClassName('flagImage')[0].style.visibility = loadedTile.isDone;
+		tile.getElementsByClassName('flagImage')[0].style.visibility = loadedTile.isDoneS;
+		tile.getElementsByClassName('doneFlag')[0].value = loadedTile.isDoneS;
     }
     tile.style.background = loadedTile.color;
     moveTile(tile,loadedTile.x,loadedTile.y)
@@ -392,15 +394,16 @@ function saveTiles(projectName) {
         				img: tiles[i].getElementsByClassName('generalTileImage')[0].getAttribute('src'),
         				color: tiles[i].style.background,
         				isArrow: isArrowFlag,
-						isDone: tiles[i].getElementsByClassName('doneFlag')[0].getAttribute('isDone')
+						isDoneS: tiles[i].getElementsByClassName('flagImage')[0].style.visibility
       			}
-				console.log(tiles[i].getElementsByClassName('textInput')[0].value);
+				console.log(aTile.isDoneS);
 		    }
         tilesToSave.push(aTile);
 		//
     }
 	
-    console.log(tilesToSave);
+    console.log('The following tiles saved:');
+	console.log(tilesToSave);
     var outputJSON = {data: JSON.stringify(tilesToSave), project: projectName};
     $.post('/saveTiles', outputJSON, function(data) {
         /*if(data == 'Saved!')
@@ -421,6 +424,7 @@ function loadTiles(projectName) {
             loadTile(tiles[i]);
             //Load in tiles
         }
+		console.log('The project ' + projectName + ' Loaded with next tiles:');
         console.log(tiles);
     });
 }
